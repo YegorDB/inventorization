@@ -1,10 +1,18 @@
 version: '3.8'
 
 services:
-  react:
+  mongo:
+    image: mongo:4.4.14
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - "./data/mongo/db:/data/db"
+
+  webpack:
     image: node:16.14
     volumes:
-      - "./src/react/static:/static"
+      - "./src/webpack/static:/static"
 
   nginx:
     image: nginx:1.21
