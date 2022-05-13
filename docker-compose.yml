@@ -9,6 +9,13 @@ services:
     volumes:
       - "./data/mongo/db:/data/db"
 
+  express:
+    image: node:16.14
+    volumes:
+      - "./src/express:/app"
+    depends_on:
+      - mongo
+
   webpack:
     image: node:16.14
     volumes:
@@ -22,4 +29,5 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - react
+      - express
+      - webpack
