@@ -1,8 +1,10 @@
 #!/bin/bash
 
-# npm install
+npm install
 
-while true;
-do
-	sleep 60
-done
+node main.js
+
+# while true;
+# do
+# 	sleep 60
+# done
