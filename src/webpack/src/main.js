@@ -1,0 +1,1 @@
+window.QWERTY = 10;
