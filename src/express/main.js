@@ -7,8 +7,15 @@ const PORT = 3000;
 const app = express();
 
 
+app.set('views', './views');
+app.set('view engine', 'pug');
+
+
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.render('index', {
+    title: 'Hey',
+    message: 'Hello there!'
+  });
 });
 
 
