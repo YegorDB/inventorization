@@ -1,8 +1,9 @@
 const React = require('react');
-const ReactDOM = require('react-dom');
+const ReactDOM = require('react-dom/client');
 
 
-ReactDOM.render(
-  <div>123</div>,
-  document.getElementById('app')
-);
+window.addEventListener('DOMContentLoaded', (event) => {
+  ReactDOM
+  .createRoot(document.getElementById('app'))
+  .render(<div>123</div>);
+});
