@@ -1,8 +1,11 @@
 module.exports = {
   mode: 'development',
-  entry: '/src/main.jsx',
+  entry: {
+    'main': '/src/main.jsx',
+    'profile': '/src/profile.jsx',
+  },
   output: {
-    filename: 'main.min.js',
+    filename: '[name].min.js',
     path: '/static',
   },
   module: {
