@@ -13,8 +13,16 @@ app.set('view engine', 'pug');
 
 app.get('/', (req, res) => {
   res.render('index', {
-    title: 'Hey',
-    message: 'Hello there!'
+    pageTitle: 'Inventorization | Index',
+    title: 'Index'
+  });
+});
+
+
+app.get('/profile/', (req, res) => {
+  res.render('profile', {
+    pageTitle: 'Inventorization | Profile',
+    title: 'Profile'
   });
 });
 

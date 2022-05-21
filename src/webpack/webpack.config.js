@@ -1,7 +1,7 @@
 module.exports = {
   mode: 'development',
   entry: {
-    'main': '/src/main.jsx',
+    'index': '/src/index.jsx',
     'profile': '/src/profile.jsx',
   },
   output: {
