@@ -1,7 +1,5 @@
-html
-  head
-    title= pageTitle
-    script(src='/static/index.min.js')
-  body
-    h1= title
-    #app
+extends base.pug
+
+
+block scripts
+  script(src='/static/index.min.js')
