@@ -1,5 +1,8 @@
 const express = require("express");
 
+var indexRouter = require('./routes/index');
+var profileRouter = require('./routes/profile');
+
 
 const PORT = 3000;
 
@@ -10,21 +13,8 @@ const app = express();
 app.set("views", "./views");
 app.set("view engine", "pug");
 
-
-app.get("/", (req, res) => {
-  res.render("index", {
-    pageTitle: "Inventorization | Index",
-    title: "Index"
-  });
-});
-
-
-app.get("/profile/", (req, res) => {
-  res.render("profile", {
-    pageTitle: "Inventorization | Profile",
-    title: "Profile"
-  });
-});
+app.use('/', indexRouter);
+app.use('/profile', profileRouter);
 
 
 app.listen(PORT, () => {
