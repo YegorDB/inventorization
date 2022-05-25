@@ -1,17 +1,20 @@
-const express = require("express");
+var express = require("express");
+var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var profileRouter = require('./routes/profile');
 
 
-const PORT = 3000;
+var PORT = 3000;
 
 
-const app = express();
+var app = express();
 
 
 app.set("views", "./views");
 app.set("view engine", "pug");
+
+app.use(logger('dev'));
 
 app.use('/', indexRouter);
 app.use('/profile', profileRouter);
