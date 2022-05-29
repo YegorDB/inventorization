@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "lint": "eslint main.js"
+    "lint": "eslint main.js",
+    "start": "node main.js",
+    "devstart": "nodemon main.js"
   },
   "dependencies": {
     "cookie-parser": "^1.4.6",
@@ -9,6 +11,7 @@
   },
   "devDependencies": {
     "eslint": "^8.16.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.16"
   }
 }

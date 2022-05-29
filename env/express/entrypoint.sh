@@ -2,7 +2,8 @@
 
 npm install
 
-node main.js
+# npm run start
+npm run devstart
 
 # while true;
 # do
