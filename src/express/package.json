@@ -2,7 +2,7 @@
   "scripts": {
     "lint": "eslint main.js",
     "start": "node main.js",
-    "devstart": "nodemon main.js"
+    "devstart": "nodemon --watch src main.js"
   },
   "dependencies": {
     "cookie-parser": "^1.4.6",
