@@ -23,6 +23,10 @@ app.use(cookieParser());
 app.use('/', indexRouter);
 app.use('/profile', profileRouter);
 
+app.use(function(req, res, next) {
+  next(createError(404));
+});
+
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${ PORT }`);
