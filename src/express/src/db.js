@@ -10,9 +10,9 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 var Schema = mongoose.Schema;
 
 var ItemModelSchema = new Schema({
-    _id: Number,
+    _id: Schema.Types.ObjectId,
     title: String,
-    count: Number
+    count: { type: Number, min: 0 }
 });
 
 var ItemModel = mongoose.model('ItemModel', ItemModelSchema);
