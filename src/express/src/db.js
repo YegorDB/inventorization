@@ -11,8 +11,18 @@ var Schema = mongoose.Schema;
 
 var ItemModelSchema = new Schema({
     // _id: Schema.Types.ObjectId,
-    title: { type: String, maxlength: 100 },
+    title: { type: String, maxlength: 100, unique: true },
     count: { type: Number, min: 0 }
 });
+
+schema.method('getCount', function (title) {
+  try {
+    let item = mongoose.model('ItemModel').findOne({ title: title });
+    return item.count;
+  } except(error) {
+    // console.log(error);
+    return 0;
+  }
+})
 
 var ItemModel = mongoose.model('ItemModel', ItemModelSchema);
