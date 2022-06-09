@@ -15,9 +15,9 @@ var ItemModelSchema = new Schema({
     count: { type: Number, min: 0 }
 });
 
-schema.method('getCount', function (title) {
+schema.static('getCount', function (title) {
   try {
-    let item = mongoose.model('ItemModel').findOne({ title: title });
+    let item = this.findOne({ title: title });
     return item.count;
   } except(error) {
     // console.log(error);
