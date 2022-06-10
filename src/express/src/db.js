@@ -15,7 +15,7 @@ var ItemModelSchema = new Schema({
     count: { type: Number, min: 0 }
 });
 
-schema.static('getCount', function (title) {
+ItemModelSchema.static('getCount', function(title) {
   try {
     let item = this.findOne({ title: title });
     return item.count;
@@ -23,6 +23,10 @@ schema.static('getCount', function (title) {
     // console.log(error);
     return 0;
   }
-})
+});
+
+ItemModelSchema.query.byTitle = function(title) {
+  return this.where({ title: new RegExp(title, 'i') });
+};
 
 var ItemModel = mongoose.model('ItemModel', ItemModelSchema);
