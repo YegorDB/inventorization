@@ -9,15 +9,37 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 var Schema = mongoose.Schema;
 
-var ItemModelSchema = new Schema({
-    // _id: Schema.Types.ObjectId,
-    title: { type: String, maxlength: 100, unique: true },
-    count: { type: Number, min: 0 }
+var groupSchema = new Schema({
+    name: {
+      type: String,
+      maxlength: 100,
+      unique: true
+    },
+    items : [{
+      type: Schema.Types.ObjectId,
+      ref: 'Item'
+    }]
 });
 
-ItemModelSchema.static('getCount', function(title) {
+var itemSchema = new Schema({
+    name: {
+      type: String,
+      maxlength: 100,
+      unique: true
+    },
+    count: {
+      type: Number,
+      min: 0
+    },
+    group: {
+      type: Schema.Types.ObjectId,
+      ref: 'Group'
+    }
+});
+
+itemSchema.static('getCount', function(name) {
   try {
-    let item = this.findOne({ title: title });
+    let item = this.findOne({ name: name });
     return item.count;
   } except(error) {
     // console.log(error);
@@ -25,8 +47,11 @@ ItemModelSchema.static('getCount', function(title) {
   }
 });
 
-ItemModelSchema.query.byTitle = function(title) {
-  return this.where({ title: new RegExp(title, 'i') });
+itemSchema.query.byName = function(name) {
+  return this.where({
+    name: new RegExp(name, 'i')
+  });
 };
 
-var ItemModel = mongoose.model('ItemModel', ItemModelSchema);
+var Group = mongoose.model('Group', groupSchema);
+var Item = mongoose.model('Item', itemSchema);
