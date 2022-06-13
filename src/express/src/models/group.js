@@ -8,10 +8,10 @@ var groupSchema = new Schema({
       maxlength: 100,
       unique: true
     },
-    items : [{
-      type: Schema.Types.ObjectId,
-      ref: 'Item'
-    }]
+    // items : [{
+    //   type: Schema.Types.ObjectId,
+    //   ref: 'Item'
+    // }]
 });
 
 module.exports = mongoose.model('Group', groupSchema);
