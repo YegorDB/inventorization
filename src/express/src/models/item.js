@@ -22,7 +22,7 @@ itemSchema.static('getCount', function(name) {
   try {
     let item = this.findOne({ name: name });
     return item.count;
-  } except(error) {
+  } catch(error) {
     // console.log(error);
     return 0;
   }
