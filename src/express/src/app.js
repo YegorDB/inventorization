@@ -4,6 +4,7 @@ var cookieParser = require('cookie-parser');
 
 var db = require('./db');
 var indexRouter = require('./routes/index');
+var groupRouter = require('./routes/group');
 var itemRouter = require('./routes/item');
 var profileRouter = require('./routes/profile');
 
@@ -23,6 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/', indexRouter);
+app.use('/group', groupRouter);
 app.use('/item', itemRouter);
 app.use('/profile', profileRouter);
 
