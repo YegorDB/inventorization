@@ -2,6 +2,7 @@ module.exports = {
   mode: 'development',
   entry: {
     'index': '/src/index.jsx',
+    'item': '/src/item.jsx',
     'profile': '/src/profile.jsx',
   },
   output: {
