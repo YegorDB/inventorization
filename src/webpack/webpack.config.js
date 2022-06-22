@@ -1,6 +1,7 @@
 module.exports = {
   mode: 'development',
   entry: {
+    'group': '/src/group.jsx',
     'index': '/src/index.jsx',
     'item': '/src/item.jsx',
     'profile': '/src/profile.jsx',
