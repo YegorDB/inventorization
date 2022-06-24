@@ -2,7 +2,7 @@
   "scripts": {
     "lint": "eslint main.js",
     "start": "node main.js",
-    "devstart": "nodemon --watch src main.js"
+    "start_dev": "nodemon --watch src main.js"
   },
   "dependencies": {
     "async": "^3.2.4",

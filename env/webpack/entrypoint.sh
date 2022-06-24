@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# # ncu -u
 # npm install
 
 while true;

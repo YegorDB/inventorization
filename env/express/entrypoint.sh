@@ -1,9 +1,10 @@
 #!/bin/bash
 
+# ncu -u
 npm install
 
 # npm run start
-npm run devstart
+npm run start_dev
 
 # while true;
 # do
