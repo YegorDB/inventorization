@@ -3,3 +3,11 @@ extends base.pug
 
 block scripts
   script(src='/static/index.min.js')
+
+
+block main
+  if error
+    p Error
+  else
+    p group count {data.group_count}
+    p item count {data.item_count}
