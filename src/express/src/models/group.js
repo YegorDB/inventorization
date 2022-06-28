@@ -8,6 +8,10 @@ var groupSchema = new Schema({
       maxlength: 100,
       unique: true
     },
+    group: {
+      type: Schema.Types.ObjectId,
+      ref: 'Group'
+    },
     // items : [{
     //   type: Schema.Types.ObjectId,
     //   ref: 'Item'
