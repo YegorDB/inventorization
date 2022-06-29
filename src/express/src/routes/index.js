@@ -14,6 +14,9 @@ router.get('/', function(req, res, next) {
       item_count: function(callback) {
           Item.countDocuments({}, callback);
       },
+      groups: function(callback) {
+          Group.find({group: null}, '_id name').exec(callback);
+      },
   }, function(err, results) {
       res.render('index', {
         pageTitle: "Inventorization | Index",
