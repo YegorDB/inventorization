@@ -9,11 +9,12 @@ block main
   if error
     p Error
   else
-    p group count {data.group_count}
-    p item count {data.item_count}
+    p group count #{data.group_count}
+    p item count #{data.item_count}
 
     ul
       each group in data.groups
-        li {group.name}
+        li
+          a(href="/group/" + group._id) #{group.name}
       else
         li There are no groups.

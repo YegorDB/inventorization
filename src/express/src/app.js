@@ -1,6 +1,7 @@
-var express = require("express");
-var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var express = require('express');
+var logger = require('morgan');
+var path = require('path')
 
 var db = require('./db');
 var indexRouter = require('./routes/index');
@@ -15,7 +16,7 @@ var PORT = 3000;
 var app = express();
 
 
-app.set("views", "./views");
+app.set('views', path.join(__dirname, 'views'));
 app.set("view engine", "pug");
 
 app.use(logger('dev'));
