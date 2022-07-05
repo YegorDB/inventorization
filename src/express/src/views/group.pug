@@ -6,4 +6,11 @@ block scripts
 
 
 block main
-  p group "#{group.name}"
+  p group "#{data.group.name}"
+
+  ul
+    each item in data.items
+      li
+        a(href="/item/" + item._id) #{item.name}
+    else
+      li There are no items.

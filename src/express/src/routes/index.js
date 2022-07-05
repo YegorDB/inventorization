@@ -18,11 +18,12 @@ router.get('/', function(req, res, next) {
           Group.find({group: null}, '_id name').exec(callback);
       },
   }, function(err, results) {
+      if (err) { return next(err); }
+
       res.render('index', {
         pageTitle: "Inventorization | Index",
         title: "Index",
         data: results,
-        error: err
       });
   });
 });
