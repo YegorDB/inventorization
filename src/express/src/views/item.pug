@@ -3,3 +3,8 @@ extends base.pug
 
 block scripts
   script(src='/static/item.min.js')
+
+
+block main
+  p Name #{item.name}
+  p Count #{item.count}
