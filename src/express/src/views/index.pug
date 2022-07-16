@@ -15,3 +15,9 @@ block main
         a(href="/group/" + group._id) #{group.name}
     else
       li There are no groups.
+
+  form(action="/group/add/_/" method="post")
+    h3 Add group
+    label(for="name") Name
+    input(id="name" type="text" name="name")
+    input(type="submit" value="create")
