@@ -27,5 +27,16 @@ router.get('/:groupId/', function(req, res, next) {
   });
 });
 
+router.post('/add/:groupId/', function(req, res, next) {
+  console.log('groupId', req.params.groupId);
+
+  let group = new Group({
+    name: req.body.name,
+    group: req.params.groupId == '_' ? null : req.params.groupId,
+  });
+
+  group.save()
+  .then(g => res.redirect(301, `/group/${g._id}/`));
+});
 
 module.exports = router;
