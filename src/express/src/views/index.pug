@@ -16,8 +16,5 @@ block main
     else
       li There are no groups.
 
-  form(action="/group/add/_/" method="post")
-    h3 Add group
-    label(for="name") Name
-    input(id="name" type="text" name="name")
-    input(type="submit" value="create")
+  include forms/add_group.pug
+  +add_group_form("_")
