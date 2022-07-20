@@ -1,0 +1,9 @@
+mixin add_item_form(group_id)
+  - var action = "/item/add/" + group_id + "/";
+  form(action=action method="post")
+    h3 Add item
+    label(for="name") Name
+    input(id="name" type="text" name="name")
+    label(for="count") Count
+    input(id="count" type="text" name="count")
+    input(type="submit" value="create")

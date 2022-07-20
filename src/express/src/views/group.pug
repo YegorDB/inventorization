@@ -14,3 +14,9 @@ block main
         a(href="/item/" + item._id) #{item.name}
     else
       li There are no items.
+
+  include forms/add_group.pug
+  +add_group_form(data.group._id)
+
+  include forms/add_item.pug
+  +add_item_form(data.group._id)
