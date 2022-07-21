@@ -8,6 +8,15 @@ block scripts
 block main
   p group "#{data.group.name}"
 
+  h3 Groups
+  ul
+    each group in data.groups
+      li
+        a(href="/group/" + group._id) #{group.name}
+    else
+      li There are no groups.
+
+  h3 Items
   ul
     each item in data.items
       li

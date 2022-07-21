@@ -13,6 +13,9 @@ router.get('/:groupId/', function(req, res, next) {
       group: function(callback) {
           Group.findOne({ _id: req.params.groupId }).exec(callback);
       },
+      groups: function(callback) {
+          Group.find({ group: req.params.groupId }).exec(callback);
+      },
       items: function(callback) {
           Item.find({ group: req.params.groupId }).exec(callback);
       },
