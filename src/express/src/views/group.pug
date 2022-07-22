@@ -6,6 +6,11 @@ block scripts
 
 
 block main
+  if data.group.group
+    a(href="/group/" + data.group.group) back
+  else
+    a(href="/") back
+
   p group "#{data.group.name}"
 
   h3 Groups
