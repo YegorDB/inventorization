@@ -21,16 +21,13 @@ router.get('/:itemId/', function(req, res, next) {
 });
 
 router.post('/add/:groupId/', function(req, res, next) {
-  console.log('groupId', req.params.groupId);
-
-  let item = new Item({
+  const item = new Item({
     name: req.body.name,
     count: req.body.count,
     group: req.params.groupId,
   });
 
-  item.save()
-  .then(i => res.redirect(301, `/item/${i._id}/`));
+  item.save().then(item => res.json(item));
 });
 
 

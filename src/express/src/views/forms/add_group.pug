@@ -1,6 +1,6 @@
 mixin add_group_form(group_id)
   - var action = "/group/add/" + group_id + "/";
-  form(action=action method="post")
+  form(action=action method="post" id="add-group-form")
     h3 Add group
     label(for="name") Name
     input(id="name" type="text" name="name")
