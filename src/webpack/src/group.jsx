@@ -19,7 +19,11 @@ window.addEventListener('DOMContentLoaded', (event) => {
       return response.json();
     })
     .then((data) => {
-      window.location.replace(`/item/${data._id}`);
+      if (data.errors) {
+        consle.log('errors', data.errors);
+      } else {
+        window.location.replace(`/item/${data._id}`);
+      }
     });
   });
 

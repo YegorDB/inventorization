@@ -1,8 +1,9 @@
-var express = require('express');
+const express = require('express');
+const { body, validationResult } = require('express-validator');
 
-var Item = require('../models/item');
+const Item = require('../models/item');
 
-var router = express.Router();
+const router = express.Router();
 
 
 router.get('/:itemId/', function(req, res, next) {
@@ -20,7 +21,16 @@ router.get('/:itemId/', function(req, res, next) {
     });
 });
 
-router.post('/add/:groupId/', function(req, res, next) {
+const addValidations = [
+  body('name').isLength({ min: 3, max: 50 }),
+];
+
+function addHandler(req, res, next) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   const item = new Item({
     name: req.body.name,
     count: req.body.count,
@@ -28,7 +38,9 @@ router.post('/add/:groupId/', function(req, res, next) {
   });
 
   item.save().then(item => res.json(item));
-});
+}
+
+router.post('/add/:groupId/', ...addValidations, addHandler);
 
 
 module.exports = router;
