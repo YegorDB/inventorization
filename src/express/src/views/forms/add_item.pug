@@ -4,6 +4,8 @@ mixin add_item_form(group_id)
     h3 Add item
     label(for="name") Name
     input(id="name" type="text" name="name")
+    span(id="add-item-form-error-name" class="add-item-form-error")
     label(for="count") Count
     input(id="count" type="text" name="count")
+    span(id="add-item-form-error-count" class="add-item-form-error")
     input(type="submit" value="create")

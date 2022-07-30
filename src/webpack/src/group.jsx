@@ -19,8 +19,16 @@ window.addEventListener('DOMContentLoaded', (event) => {
       return response.json();
     })
     .then((data) => {
+      const errorElems = document.querySelectorAll('.add-item-form-error');
+      for (const errorElem of errorElems) {
+        errorElem.innerHTML = null;
+      }
+
       if (data.errors) {
-        consle.log('errors', data.errors);
+        for (const error of data.errors) {
+          const errorElem = document.getElementById(`add-item-form-error-${error.param}`);
+          errorElem.innerHTML = error.msg;
+        }
       } else {
         window.location.replace(`/item/${data._id}`);
       }
