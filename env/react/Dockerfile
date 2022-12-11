@@ -1,7 +1,8 @@
 FROM node:19.2
 
+RUN ["npm", "update", "-g", "npm"]
 RUN ["npm", "install", "-g", "create-react-app"]
-RUN ["npm", "i", "-g", "serve"]
+# RUN ["npm", "install", "-g", "serve"]
 
 COPY ./entrypoint.sh /usr/local/bin/
 
