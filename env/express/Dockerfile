@@ -1,6 +1,6 @@
-FROM node:16.14
+FROM node:19.2
 
-RUN ["npm", "i", "-g", "npm-check-updates"]
+RUN ["npm", "install", "-g", "npm-check-updates"]
 
 WORKDIR /app
 

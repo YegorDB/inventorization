@@ -1,11 +1,36 @@
 version: '3.8'
 
 services:
+  mongo:
+    image: mongo:4.4.14
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - "./data/mongo/db:/data/db"
+
+  express:
+    build:
+      context: ./env/express
+    image: inventorization/express:dev
+    volumes:
+      - "./src/express:/app"
+    depends_on:
+      - mongo
+
   react:
     build:
       context: ./env/react
     image: inventorization/react:dev
     volumes:
       - "./src/react:/app"
+
+  nginx:
+    image: nginx:1.21
+    volumes:
+      - "./src/nginx/nginx.test.conf:/etc/nginx/nginx.conf"
     ports:
-      - "3000:3000"
+      - "80:80"
+    depends_on:
+      - express
+      - react
