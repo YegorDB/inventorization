@@ -5,6 +5,7 @@ var path = require('path')
 
 var db = require('./db');
 var indexRouter = require('./routes/index');
+var apiRouter = require('./routes/api');
 var groupRouter = require('./routes/group');
 var itemRouter = require('./routes/item');
 var profileRouter = require('./routes/profile');
@@ -25,6 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/', indexRouter);
+app.use('/api', apiRouter);
 app.use('/group', groupRouter);
 app.use('/item', itemRouter);
 app.use('/profile', profileRouter);
