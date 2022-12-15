@@ -1,10 +1,11 @@
-var async = require('async');
-var express = require('express');
+const async = require('async');
+const express = require('express');
+const { body, validationResult } = require('express-validator');
 
-var Group = require('../models/group');
-var Item = require('../models/item');
+const Group = require('../models/group');
+const Item = require('../models/item');
 
-var router = express.Router();
+const router = express.Router();
 
 router.get('/groups/', function(req, res, next) {
   async.parallel({
@@ -52,5 +53,26 @@ router.get('/items/:itemId/', function(req, res, next) {
       res.json(item);
     });
 });
+
+const addItemValidations = [
+  body('name').isLength({ min: 3, max: 50 }),
+];
+
+function addItemHandler(req, res, next) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const item = new Item({
+    name: req.body.name,
+    count: req.body.count,
+    group: req.params.groupId,
+  });
+
+  item.save().then(item => res.json(item));
+}
+
+router.post('/items/add/:groupId/', ...addItemValidations, addItemHandler);
 
 module.exports = router;
