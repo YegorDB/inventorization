@@ -40,4 +40,17 @@ router.get('/groups/:groupId/', function(req, res, next) {
   });
 });
 
+router.get('/items/:itemId/', function(req, res, next) {
+  console.log('itemId', req.params.itemId);
+
+  Item.findOne({ _id: req.params.itemId })
+    .exec(function (err, item) {
+      if (err) {
+        return next(err);
+      }
+
+      res.json(item);
+    });
+});
+
 module.exports = router;
