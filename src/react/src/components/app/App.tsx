@@ -4,16 +4,19 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import Index from '../index/Index';
+import Main, { mainLoader } from '../main/Main';
+import Group, { groupLoader } from '../group/Group';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Index/>,
+    element: <Main/>,
+    loader: mainLoader,
   },
   {
     path: "/group/:groupId",
-    element: <div>Group page</div>,
+    element: <Group/>,
+    loader: groupLoader,
   },
   {
     path: "/item/:itemId",
