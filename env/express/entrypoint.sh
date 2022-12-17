@@ -3,8 +3,8 @@
 # ncu -u
 npm install
 
-# npm run start
-npm run start_dev
+npm run start
+# npm run start_dev
 
 # while true;
 # do
