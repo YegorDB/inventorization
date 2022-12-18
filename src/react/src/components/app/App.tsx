@@ -4,8 +4,9 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import Main, { mainLoader } from '../main/Main';
 import Group, { groupLoader } from '../group/Group';
+import Item, { itemLoader } from '../item/Item';
+import Main, { mainLoader } from '../main/Main';
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,8 @@ const router = createBrowserRouter([
   },
   {
     path: "/item/:itemId",
-    element: <div>Item page</div>,
+    element: <Item/>,
+    loader: itemLoader,
   },
 ]);
 

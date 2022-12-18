@@ -16,7 +16,7 @@ function Group() {
 
   return (
     <>
-      <h1>{ group.name }</h1>
+      <h1>Group { group.name }</h1>
 
       <h3>Groups</h3>
       {groups.length > 0 ? groups.map((group: TGroup) => (
