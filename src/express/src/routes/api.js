@@ -7,7 +7,7 @@ const Item = require('../models/item');
 
 const router = express.Router();
 
-router.get('/groups/', function(req, res, next) {
+router.get('/groups/', (req, res, next) => {
   async.parallel({
     groups: function(callback) {
       Group.find({group: null}, '_id name').exec(callback);
@@ -21,7 +21,7 @@ router.get('/groups/', function(req, res, next) {
   });
 });
 
-router.get('/groups/:groupId/', function(req, res, next) {
+router.get('/groups/:groupId/', (req, res, next) => {
   async.parallel({
     group: function(callback) {
       Group.findOne({ _id: req.params.groupId }).exec(callback);
@@ -41,9 +41,7 @@ router.get('/groups/:groupId/', function(req, res, next) {
   });
 });
 
-router.get('/items/:itemId/', function(req, res, next) {
-  console.log('itemId', req.params.itemId);
-
+router.get('/items/:itemId/', (req, res, next) => {
   Item.findOne({ _id: req.params.itemId })
     .exec(function (err, item) {
       if (err) {
@@ -54,25 +52,38 @@ router.get('/items/:itemId/', function(req, res, next) {
     });
 });
 
-const addItemValidations = [
+const validators = [
   body('name').isLength({ min: 3, max: 50 }),
 ];
 
-function addItemHandler(req, res, next) {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
+function postRouter(url, validators, handler) {
+  router.post(url, ...validators, (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
 
+    handler(req, res, next);
+  });
+}
+
+postRouter('/groups/add/:parentGroupId/', validators, (req, res, next) => {
+  const group = new Group({
+    name: req.body.name,
+    group: req.params.parentGroupId == '_' ? null : req.params.parentGroupId,
+  });
+
+  group.save().then(group => res.json(group));
+});
+
+postRouter('/items/add/:parentGroupId/', validators, (req, res, next) => {
   const item = new Item({
     name: req.body.name,
     count: req.body.count,
-    group: req.params.groupId,
+    group: req.params.parentGroupId,
   });
 
   item.save().then(item => res.json(item));
-}
-
-router.post('/items/add/:groupId/', ...addItemValidations, addItemHandler);
+});
 
 module.exports = router;
