@@ -17,3 +17,7 @@ export type TGroupData = {
   groups: TGroup[],
   items: string,
 }
+
+export type TAddGroupFormProps = {
+  parentGroupId: string,
+}

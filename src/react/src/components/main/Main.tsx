@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 
+import AddGroupForm from '../add-group-form/AddGroupForm';
 import { TGroup } from '../../types';
 
 // @ts-ignore
@@ -24,6 +25,8 @@ function Index() {
           <div>{group.name}</div>
         </Link>
       ))}
+
+      <AddGroupForm parentGroupId="_" />
     </>
   );
 }
