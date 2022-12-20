@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 
 import AddGroupForm from '../add-group-form/AddGroupForm';
+import AddItemForm from '../add-item-form/AddItemForm';
 import { TItem, TGroup, TGroupData } from '../../types';
 
 // @ts-ignore
@@ -34,6 +35,7 @@ function Group() {
       )) : <div>Empty</div>}
 
       <AddGroupForm parentGroupId={group._id} />
+      <AddItemForm parentGroupId={group._id} />
     </>
   );
 }

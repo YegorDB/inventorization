@@ -21,3 +21,7 @@ export type TGroupData = {
 export type TAddGroupFormProps = {
   parentGroupId: string,
 }
+
+export type TAddItemFormProps = {
+  parentGroupId: string,
+}
