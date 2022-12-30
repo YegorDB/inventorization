@@ -9,6 +9,7 @@ export type TItem = {
 export type TGroup = {
   _id: string,
   name: string,
+  group?: TGroup | string,
   __v: number,
 }
 

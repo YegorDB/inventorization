@@ -14,7 +14,7 @@ export const AddItemForm: FC<TAddItemFormProps> = ({ parentGroupId }) => {
   );
 
   const changeCount = useCallback<ChangeEventHandler<HTMLInputElement>>(
-    e => setCount(e.target.value),
+    e => setCount(parseInt(e.target.value)),
     []
   );
 
@@ -39,31 +39,35 @@ export const AddItemForm: FC<TAddItemFormProps> = ({ parentGroupId }) => {
         console.log('data', data);
       });
     },
-    [name]
+    [name, count, parentGroupId]
   );
 
   return (
     <form onSubmit={ handle }>
-      <label>
-        Name
-        <input
-          type="text"
-          placeholder="Name"
-          onChange={ changeName }
-          value={ name }
-          name="name"
-        />
-      </label>
-      <label>
-        Count
-        <input
-          type="number"
-          placeholder="Count"
-          onChange={ changeCount }
-          value={ count }
-          name="count"
-        />
-      </label>
+      <div>
+        <label>
+          Name
+          <input
+            type="text"
+            placeholder="Name"
+            onChange={ changeName }
+            value={ name }
+            name="name"
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          Count
+          <input
+            type="number"
+            placeholder="Count"
+            onChange={ changeCount }
+            value={ count }
+            name="count"
+          />
+        </label>
+      </div>
       <input type="submit" />
     </form>
   );

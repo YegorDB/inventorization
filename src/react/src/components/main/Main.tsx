@@ -26,6 +26,7 @@ function Index() {
         </Link>
       ))}
 
+      <h3>Add group</h3>
       <AddGroupForm parentGroupId="_" />
     </>
   );

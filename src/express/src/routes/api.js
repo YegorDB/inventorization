@@ -24,7 +24,10 @@ router.get('/groups/', (req, res, next) => {
 router.get('/groups/:groupId/', (req, res, next) => {
   async.parallel({
     group: function(callback) {
-      Group.findOne({ _id: req.params.groupId }).exec(callback);
+      Group
+      .findOne({ _id: req.params.groupId })
+      .populate('group')
+      .exec(callback);
     },
     groups: function(callback) {
       Group.find({ group: req.params.groupId }).exec(callback);

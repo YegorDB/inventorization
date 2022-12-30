@@ -16,8 +16,15 @@ function Group() {
   // @ts-ignore
   const { group, groups, items} = useLoaderData();
 
+  const parentLink = group.group ? `/group/${group.group._id}` : '/';
+  const parentName = group.group?.name || 'Main';
+
   return (
     <>
+      <Link to={parentLink}>
+        <div>{parentName}</div>
+      </Link>
+
       <h1>Group { group.name }</h1>
 
       <h3>Groups</h3>
@@ -34,7 +41,10 @@ function Group() {
         </Link>
       )) : <div>Empty</div>}
 
+      <h3>Add group</h3>
       <AddGroupForm parentGroupId={group._id} />
+
+      <h3>Add item</h3>
       <AddItemForm parentGroupId={group._id} />
     </>
   );

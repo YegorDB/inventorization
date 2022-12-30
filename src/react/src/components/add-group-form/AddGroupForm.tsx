@@ -32,21 +32,23 @@ export const AddGroupForm: FC<TAddGroupFormProps> = ({ parentGroupId }) => {
         console.log('data', data);
       });
     },
-    [name]
+    [name, parentGroupId]
   );
 
   return (
     <form onSubmit={ handle }>
-      <label>
-        Name
-        <input
-          type="text"
-          placeholder="Name"
-          onChange={ changeName }
-          value={ name }
-          name="name"
-        />
-      </label>
+      <div>
+        <label>
+          Name
+          <input
+            type="text"
+            placeholder="Name"
+            onChange={ changeName }
+            value={ name }
+            name="name"
+          />
+        </label>
+      </div>
       <input type="submit" />
     </form>
   );
