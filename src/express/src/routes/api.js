@@ -45,14 +45,16 @@ router.get('/groups/:groupId/', (req, res, next) => {
 });
 
 router.get('/items/:itemId/', (req, res, next) => {
-  Item.findOne({ _id: req.params.itemId })
-    .exec(function (err, item) {
-      if (err) {
-        return next(err);
-      }
+  Item
+  .findOne({ _id: req.params.itemId })
+  .populate('group')
+  .exec(function (err, item) {
+    if (err) {
+      return next(err);
+    }
 
-      res.json(item);
-    });
+    res.json(item);
+  });
 });
 
 const validators = [
