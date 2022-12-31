@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 
-import { TFullItem } from '../../types';
+import ParentGroups from '../parent-groups/ParentGroups';
+import { TItemData } from '../../types';
 
 // @ts-ignore
-export async function itemLoader({ params }): TFullItem {
+export async function itemLoader({ params }): TItemData {
   return await fetch(`/api/items/${params.itemId}`).then((response) => {
     return response.json();
   });
@@ -12,13 +13,11 @@ export async function itemLoader({ params }): TFullItem {
 
 function Item() {
   // @ts-ignore
-  const item: TFullItem = useLoaderData();
+  const {item, parentGroups} = useLoaderData();
 
   return (
     <>
-      <Link to={`/group/${item.group._id}`}>
-        <div>{item.group.name}</div>
-      </Link>
+      <ParentGroups groups={ parentGroups } />
 
       <h1>Item { item.name }</h1>
 

@@ -1,6 +1,7 @@
 const async = require('async');
 const express = require('express');
 const { body, validationResult } = require('express-validator');
+const mongoose = require('mongoose');
 
 const Group = require('../models/group');
 const Item = require('../models/item');
@@ -45,15 +46,45 @@ router.get('/groups/:groupId/', (req, res, next) => {
 });
 
 router.get('/items/:itemId/', (req, res, next) => {
-  Item
-  .findOne({ _id: req.params.itemId })
-  .populate('group')
-  .exec(function (err, item) {
+  async.parallel({
+    parentGroups: function(callback) {
+      Item
+      .aggregate([
+        {
+          $match: {
+            _id: new mongoose.Types.ObjectId(req.params.itemId)
+          }
+        },
+        {
+          $graphLookup: {
+            from: 'groups',
+            startWith: '$group',
+            connectFromField: 'group',
+            connectToField: '_id',
+            as: 'parentGroups'
+          }
+        }
+      ])
+      .exec((err, data) => {
+        if (err) {
+          return callback(err, data);
+        }
+
+        return callback(err, data[0].parentGroups);
+      });
+    },
+    item: function(callback) {
+      Item
+      .findOne({ _id: req.params.itemId })
+      .populate('group')
+      .exec(callback);
+    },
+  }, function(err, data) {
     if (err) {
       return next(err);
     }
 
-    res.json(item);
+    res.json(data);
   });
 });
 

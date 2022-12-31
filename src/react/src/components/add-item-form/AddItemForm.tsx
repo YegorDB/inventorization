@@ -4,7 +4,7 @@ import React, {
 
 import { TAddItemFormProps } from '../../types';
 
-export const AddItemForm: FC<TAddItemFormProps> = ({ parentGroupId }) => {
+const AddItemForm: FC<TAddItemFormProps> = ({ parentGroupId }) => {
   const [name, setName] = useState<string>('');
   const [count, setCount] = useState<number>(0);
 

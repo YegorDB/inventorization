@@ -4,7 +4,7 @@ import React, {
 
 import { TAddGroupFormProps } from '../../types';
 
-export const AddGroupForm: FC<TAddGroupFormProps> = ({ parentGroupId }) => {
+const AddGroupForm: FC<TAddGroupFormProps> = ({ parentGroupId }) => {
   const [name, setName] = useState<string>('');
 
   const changeName = useCallback<ChangeEventHandler<HTMLInputElement>>(
