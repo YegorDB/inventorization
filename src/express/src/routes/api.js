@@ -3,89 +3,46 @@ const express = require('express');
 const { body, validationResult } = require('express-validator');
 const mongoose = require('mongoose');
 
+const { parentGroupsAggregation, jsonCallback } = require('./utils');
 const Group = require('../models/group');
 const Item = require('../models/item');
 
 const router = express.Router();
 
 router.get('/groups/', (req, res, next) => {
-  async.parallel({
-    groups: function(callback) {
-      Group.find({group: null}, '_id name').exec(callback);
-    },
-  }, function(err, data) {
-    if (err) {
-      return next(err);
-    }
-
-    res.json(data.groups);
-  });
+  Group
+  .find({group: null}, '_id name')
+  .exec(jsonCallback(res, next));
 });
 
 router.get('/groups/:groupId/', (req, res, next) => {
   async.parallel({
-    group: function(callback) {
+    group: callback => {
       Group
       .findOne({ _id: req.params.groupId })
       .populate('group')
       .exec(callback);
     },
-    groups: function(callback) {
+    groups: callback => {
       Group.find({ group: req.params.groupId }).exec(callback);
     },
-    items: function(callback) {
+    items: callback => {
       Item.find({ group: req.params.groupId }).exec(callback);
     },
-  }, function(err, data) {
-    if (err) {
-      return next(err);
-    }
-
-    res.json(data);
-  });
+    parentGroups: parentGroupsAggregation(Group, req.params.groupId),
+  }, jsonCallback(res, next));
 });
 
 router.get('/items/:itemId/', (req, res, next) => {
   async.parallel({
-    parentGroups: function(callback) {
-      Item
-      .aggregate([
-        {
-          $match: {
-            _id: new mongoose.Types.ObjectId(req.params.itemId)
-          }
-        },
-        {
-          $graphLookup: {
-            from: 'groups',
-            startWith: '$group',
-            connectFromField: 'group',
-            connectToField: '_id',
-            as: 'parentGroups'
-          }
-        }
-      ])
-      .exec((err, data) => {
-        if (err) {
-          return callback(err, data);
-        }
-
-        return callback(err, data[0].parentGroups);
-      });
-    },
-    item: function(callback) {
+    item: callback => {
       Item
       .findOne({ _id: req.params.itemId })
       .populate('group')
       .exec(callback);
     },
-  }, function(err, data) {
-    if (err) {
-      return next(err);
-    }
-
-    res.json(data);
-  });
+    parentGroups: parentGroupsAggregation(Item, req.params.itemId),
+  }, jsonCallback(res, next));
 });
 
 const validators = [

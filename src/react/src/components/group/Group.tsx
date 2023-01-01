@@ -3,6 +3,7 @@ import { Link, useLoaderData } from 'react-router-dom';
 
 import AddGroupForm from '../add-group-form/AddGroupForm';
 import AddItemForm from '../add-item-form/AddItemForm';
+import ParentGroups from '../parent-groups/ParentGroups';
 import { TItem, TGroup, TGroupData } from '../../types';
 
 // @ts-ignore
@@ -14,16 +15,11 @@ export async function groupLoader({ params }): TGroupData {
 
 function Group() {
   // @ts-ignore
-  const { group, groups, items} = useLoaderData();
-
-  const parentLink = group.group ? `/group/${group.group._id}` : '/';
-  const parentName = group.group?.name || 'Main';
+  const { group, groups, items, parentGroups } = useLoaderData();
 
   return (
     <>
-      <Link to={parentLink}>
-        <div>{parentName}</div>
-      </Link>
+      <ParentGroups groups={ parentGroups } />
 
       <h1>Group { group.name }</h1>
 

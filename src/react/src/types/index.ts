@@ -14,8 +14,8 @@ export type TFullItem = TBaseItem & {
 };
 
 export type TItemData = {
-  parentGroups: TGroup[],
   item: TFullItem,
+  parentGroups: TGroup[],
 };
 
 type TBaseGroup = {
@@ -36,6 +36,7 @@ export type TGroupData = {
   group: TFullGroup,
   groups: TGroup[],
   items: TItem[],
+  parentGroups: TGroup[],
 };
 
 export type TAddGroupFormProps = {
