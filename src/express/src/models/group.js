@@ -1,21 +1,15 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var Schema = mongoose.Schema;
-
-var groupSchema = new Schema({
+const groupSchema = new mongoose.Schema({
     name: {
       type: String,
       maxlength: 100,
       unique: true
     },
     group: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'Group'
     },
-    // items : [{
-    //   type: Schema.Types.ObjectId,
-    //   ref: 'Item'
-    // }]
 });
 
 module.exports = mongoose.model('Group', groupSchema);

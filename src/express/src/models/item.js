@@ -1,8 +1,6 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var Schema = mongoose.Schema;
-
-var itemSchema = new Schema({
+const itemSchema = new mongoose.Schema({
     name: {
       type: String,
       maxlength: 100,
@@ -13,7 +11,7 @@ var itemSchema = new Schema({
       min: 0
     },
     group: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'Group'
     }
 });
