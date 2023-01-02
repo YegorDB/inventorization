@@ -2,8 +2,15 @@ const Session = require('../models/session');
 const { setSessionCookie } = require('../utils');
 
 const sessionMiddleware = (req, res, next) => {
+  if (req.url == '/api/auth/login/') {
+    return next();
+  }
+
   Session
-  .findOne({ _id: req.signedCookies.sessionId })
+  .findOne({
+    _id: req.signedCookies.sessionId,
+    expired: { $gte: new Date }
+  })
   .exec((err, session) => {
     if (err) {
       return next(err);

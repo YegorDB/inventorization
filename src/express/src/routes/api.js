@@ -3,9 +3,13 @@ const express = require('express');
 const { body, validationResult } = require('express-validator');
 const mongoose = require('mongoose');
 
-const { parentGroupsAggregation, jsonCallback } = require('./utils');
 const Group = require('../models/group');
 const Item = require('../models/item');
+const Session = require('../models/session');
+const User = require('../models/user');
+const {
+  parentGroupsAggregation, jsonCallback, setSessionCookie,
+} = require('../utils');
 
 const router = express.Router();
 
@@ -45,9 +49,7 @@ router.get('/items/:itemId/', (req, res, next) => {
   }, jsonCallback(res, next));
 });
 
-const validators = [
-  body('name').isLength({ min: 3, max: 50 }),
-];
+const nameValidator = body('name').isLength({ min: 3, max: 50 });
 
 function postRouter(url, validators, handler) {
   router.post(url, ...validators, (req, res, next) => {
@@ -60,7 +62,7 @@ function postRouter(url, validators, handler) {
   });
 }
 
-postRouter('/groups/add/:parentGroupId/', validators, (req, res, next) => {
+postRouter('/groups/add/:parentGroupId/', [nameValidator], (req, res, next) => {
   const group = new Group({
     name: req.body.name,
     group: req.params.parentGroupId == '_' ? null : req.params.parentGroupId,
@@ -69,7 +71,7 @@ postRouter('/groups/add/:parentGroupId/', validators, (req, res, next) => {
   group.save().then(group => res.json(group));
 });
 
-postRouter('/items/add/:parentGroupId/', validators, (req, res, next) => {
+postRouter('/items/add/:parentGroupId/', [nameValidator], (req, res, next) => {
   const item = new Item({
     name: req.body.name,
     count: req.body.count,
@@ -77,6 +79,32 @@ postRouter('/items/add/:parentGroupId/', validators, (req, res, next) => {
   });
 
   item.save().then(item => res.json(item));
+});
+
+postRouter('/auth/login/', [], (req, res, next) => {
+  User
+  .findOne({
+    username: req.body.username,
+    password: req.body.password
+  })
+  .exec((err, user) => {
+    if (err) {
+      return next(err);
+    }
+
+    if (!user) {
+      res.json({ succes: false });
+      return;
+    }
+
+    const session = new Session({
+      user: user._id
+    });
+    session.refreshExpired(session => {
+      setSessionCookie(res, session);
+      res.json({ succes: true });
+    });
+  });
 });
 
 module.exports = router;
