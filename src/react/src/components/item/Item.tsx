@@ -1,11 +1,17 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { redirect, useLoaderData } from 'react-router-dom';
 
 import ParentGroups from '../parent-groups/ParentGroups';
 import { TItemData } from '../../types';
+import { checkAuth } from '../../utils';
 
 // @ts-ignore
-export async function itemLoader({ params }): TItemData {
+export async function itemLoader({ params }): TItemData | Response {
+  const isAuthenticated = await checkAuth();
+  if (!isAuthenticated) {
+    return redirect('/auth/login');
+  }
+
   return await fetch(`/api/items/${params.itemId}`).then((response) => {
     return response.json();
   });

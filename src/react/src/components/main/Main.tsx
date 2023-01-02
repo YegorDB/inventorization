@@ -1,17 +1,23 @@
 import React from 'react';
-import { Link, useLoaderData } from 'react-router-dom';
+import { Link, redirect, useLoaderData } from 'react-router-dom';
 
 import AddGroupForm from '../add-group-form/AddGroupForm';
 import { TGroup } from '../../types';
+import { checkAuth } from '../../utils';
 
 // @ts-ignore
-export async function mainLoader({ params }): TGroup[] {
+export async function mainLoader({ params }): TGroup[] | Response {
+  const isAuthenticated = await checkAuth();
+  if (!isAuthenticated) {
+    return redirect('/auth/login');
+  }
+
   return await fetch('/api/groups/').then((response) => {
     return response.json();
   });
 }
 
-function Index() {
+function Main() {
   // @ts-ignore
   const groups: TGroup[] = useLoaderData();
 
@@ -32,4 +38,4 @@ function Index() {
   );
 }
 
-export default Index;
+export default Main;

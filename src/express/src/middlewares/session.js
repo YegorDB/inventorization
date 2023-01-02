@@ -2,7 +2,7 @@ const Session = require('../models/session');
 const { setSessionCookie } = require('../utils');
 
 const sessionMiddleware = (req, res, next) => {
-  if (req.url == '/api/auth/login/') {
+  if (req.url == '/api/auth/login/' || req.url == '/api/auth/check/') {
     return next();
   }
 

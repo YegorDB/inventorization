@@ -1,13 +1,19 @@
 import React from 'react';
-import { Link, useLoaderData } from 'react-router-dom';
+import { Link, redirect, useLoaderData } from 'react-router-dom';
 
 import AddGroupForm from '../add-group-form/AddGroupForm';
 import AddItemForm from '../add-item-form/AddItemForm';
 import ParentGroups from '../parent-groups/ParentGroups';
 import { TItem, TGroup, TGroupData } from '../../types';
+import { checkAuth } from '../../utils';
 
 // @ts-ignore
-export async function groupLoader({ params }): TGroupData {
+export async function groupLoader({ params }): TGroupData | Response {
+  const isAuthenticated = await checkAuth();
+  if (!isAuthenticated) {
+    return redirect('/auth/login');
+  }
+
   return await fetch(`/api/groups/${params.groupId}`).then((response) => {
     return response.json();
   });

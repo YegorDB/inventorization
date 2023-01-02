@@ -13,6 +13,21 @@ const {
 
 const router = express.Router();
 
+router.get('/auth/check/', (req, res, next) => {
+  Session
+  .findOne({
+    _id: req.signedCookies.sessionId,
+    expired: { $gte: new Date }
+  })
+  .exec((err, session) => {
+    if (err) {
+      return next(err);
+    }
+
+    res.json({ success: new Boolean(session) });
+  });
+});
+
 router.get('/groups/', (req, res, next) => {
   Group
   .find({group: null}, '_id name')
@@ -93,7 +108,7 @@ postRouter('/auth/login/', [], (req, res, next) => {
     }
 
     if (!user) {
-      res.json({ succes: false });
+      res.json({ success: false });
       return;
     }
 
@@ -102,7 +117,7 @@ postRouter('/auth/login/', [], (req, res, next) => {
     });
     session.refreshExpired(session => {
       setSessionCookie(res, session);
-      res.json({ succes: true });
+      res.json({ success: true });
     });
   });
 });
