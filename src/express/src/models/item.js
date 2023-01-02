@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 const itemSchema = new mongoose.Schema({
     name: {
       type: String,
-      maxlength: 100,
-      unique: true
+      maxlength: 100
     },
     count: {
       type: Number,

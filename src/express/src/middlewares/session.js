@@ -1,17 +1,19 @@
 const Session = require('../models/session');
+const { setSessionCookie } = require('../utils');
 
 const sessionMiddleware = (req, res, next) => {
-  console.log('req.cookies.sessionId', req.cookies.sessionId);
-
   Session
-  .findOne({ _id: req.cookies.sessionId })
+  .findOne({ _id: req.signedCookies.sessionId })
   .exec((err, session) => {
     if (err) {
       return next(err);
     }
 
     if (session) {
-      next();
+      session.refreshExpired(session => {
+        setSessionCookie(res, session);
+        next();
+      });
     } else {
       next({
         status: 401,

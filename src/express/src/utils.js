@@ -50,7 +50,15 @@ const jsonCallback = (res, next) => (err, data) => {
   res.json(data);
 };
 
+const setSessionCookie = (res, session) => {
+  res.cookie('sessionId', session._id, {
+    expires: session.expired,
+    signed: true
+  });
+}
+
 module.exports = {
   parentGroupsAggregation,
   jsonCallback,
+  setSessionCookie,
 };
