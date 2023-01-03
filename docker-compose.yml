@@ -12,6 +12,7 @@ services:
   express:
     build:
       context: ./env/express
+    env_file: ./env/express/.env
     image: inventorization/express:dev
     volumes:
       - "./src/express:/app"
