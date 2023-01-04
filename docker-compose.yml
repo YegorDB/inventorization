@@ -3,9 +3,7 @@ version: '3.8'
 services:
   mongo:
     image: mongo:4.4.14
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+    env_file: ./env/mongo/.env
     volumes:
       - "./data/mongo/db:/data/db"
 
@@ -13,27 +11,11 @@ services:
     build:
       context: ./env/express
     env_file: ./env/express/.env
-    image: inventorization/express:dev
+    image: inventorization/express
     volumes:
       - "./src/express:/app"
     depends_on:
       - mongo
 
-  webpack:
-    build:
-      context: ./env/webpack
-    image: inventorization/webpack:dev
-    volumes:
-      - "./src/webpack:/app"
-      - "./src/nginx/static:/static"
-
   nginx:
     image: nginx:1.21
-    volumes:
-      - "./src/nginx/static:/static"
-      - "./src/nginx/nginx.conf:/etc/nginx/nginx.conf"
-    ports:
-      - "80:80"
-    depends_on:
-      - express
-      - webpack
