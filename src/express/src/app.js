@@ -21,7 +21,7 @@ app.use('/api', apiRouter);
 app.use((req, res, next) => {
   next({
     status: 401,
-    message: 'Not found.',
+    messages: ['Not found.'],
     client: true
   });
 })
@@ -31,7 +31,7 @@ app.use((err, req, res, next) => {
 
   res.status(err.client ? err.status : 500);
   res.json({
-    message: err.client ? err.message : 'Server error.'
+    messages: err.client ? err.messages : ['Server error.']
   });
 });
 

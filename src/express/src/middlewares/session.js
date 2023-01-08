@@ -24,7 +24,7 @@ const sessionMiddleware = (req, res, next) => {
     } else {
       next({
         status: 401,
-        message: 'Unauthorized.',
+        messages: ['Unauthorized.'],
         client: true
       });
     }

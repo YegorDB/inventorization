@@ -42,12 +42,16 @@ const parentGroupsAggregation = (model, objId) => callback => {
   });
 };
 
-const jsonCallback = (res, next) => (err, data) => {
+const callbackWrapper = (next, callback) => (err, data) => {
   if (err) {
     return next(err);
   }
 
-  res.json(data);
+  callback(data);
+};
+
+const jsonCallback = (res, next) => {
+  return callbackWrapper(next, data => res.json(data));
 };
 
 const setSessionCookie = (res, session) => {
@@ -59,6 +63,7 @@ const setSessionCookie = (res, session) => {
 
 module.exports = {
   parentGroupsAggregation,
+  callbackWrapper,
   jsonCallback,
-  setSessionCookie,
+  setSessionCookie
 };
