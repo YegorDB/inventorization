@@ -5,7 +5,7 @@ const {
   authCheckHandler, groupHandler, groupsHandler, itemHandler,
 } = require('../handlers/get');
 const {
-  addGroupHandler, addItemHandler, loginHandler,
+  addGroupHandler, addItemHandler, loginHandler, updateItemHandler,
 } = require('../handlers/post');
 const { nameValidator } = require('../validators');
 
@@ -34,5 +34,6 @@ const postRouter => (url, validators, handler) {
 postRouter('/auth/login/', [], loginHandler);
 postRouter('/groups/add/:parentGroupId/', [nameValidator], addGroupHandler);
 postRouter('/items/add/:parentGroupId/', [nameValidator], addItemHandler);
+postRouter('/items/update/:itemId/', [nameValidator], updateItemHandler);
 
 module.exports = router;

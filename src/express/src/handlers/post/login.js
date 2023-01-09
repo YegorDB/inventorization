@@ -1,6 +1,6 @@
 const Session = require('../../../models/session');
 const User = require('../../../models/user');
-const { setSessionCookie } = require('../../../utils');
+const { callbackWrapper, setSessionCookie } = require('../../../utils');
 
 const loginHandler = (req, res, next) => {
   User
@@ -8,11 +8,7 @@ const loginHandler = (req, res, next) => {
     username: req.body.username,
     password: req.body.password
   })
-  .exec((err, user) => {
-    if (err) {
-      return next(err);
-    }
-
+  .exec(callbackWrapper(next, user => {
     if (!user) {
       res.json({ success: false });
       return;
@@ -25,7 +21,7 @@ const loginHandler = (req, res, next) => {
       setSessionCookie(res, session);
       res.json({ success: true });
     });
-  });
+  }));
 };
 
 module.exports = loginHandler;
