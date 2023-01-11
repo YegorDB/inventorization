@@ -43,6 +43,12 @@ export type TAddGroupFormProps = {
   parentGroupId: string,
 };
 
+export type TBaseItemFormProps = {
+  url: string,
+  initialName?: string,
+  initialCount?: number,
+};
+
 export type TAddItemFormProps = {
   parentGroupId: string,
 };
