@@ -4,7 +4,7 @@ import React, {
 
 import { TBaseItemFormProps } from '../../types';
 
-const AddItemForm: FC<TBaseItemFormProps> = ({ url, initialName, initialCount }) => {
+const BaseItemForm: FC<TBaseItemFormProps> = ({ url, initialName, initialCount }) => {
   const [name, setName] = useState<string>(initialName || '');
   const [count, setCount] = useState<number>(initialCount || 0);
 
@@ -73,4 +73,4 @@ const AddItemForm: FC<TBaseItemFormProps> = ({ url, initialName, initialCount })
   );
 }
 
-export default AddItemForm;
+export default BaseItemForm;

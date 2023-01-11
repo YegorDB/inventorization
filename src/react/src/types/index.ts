@@ -53,6 +53,12 @@ export type TAddItemFormProps = {
   parentGroupId: string,
 };
 
+export type TUpdateItemFormProps = {
+  itemId: string,
+  initialName: string,
+  initialCount: number,
+};
+
 export type TParentGroupsProps = {
   groups: TGroup[],
 };
