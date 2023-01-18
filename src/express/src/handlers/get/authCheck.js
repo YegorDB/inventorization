@@ -1,5 +1,5 @@
-const Session = require('../../../models/session');
-const { callbackWrapper } = require('../../../utils');
+const Session = require('../../models/session');
+const { callbackWrapper } = require('../../utils');
 
 const authCheckHandler = (req, res, next) => {
   Session

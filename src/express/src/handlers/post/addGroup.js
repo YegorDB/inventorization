@@ -1,4 +1,4 @@
-const Group = require('../../../models/group');
+const Group = require('../../models/group');
 
 const addGroupHandler = (req, res, next) => {
   const group = new Group({

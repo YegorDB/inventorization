@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import BaseItemForm from '../base-item-form';
+import BaseItemForm from '../base-item-form/BaseItemForm';
 import { TAddItemFormProps } from '../../types';
 
 const AddItemForm: FC<TAddItemFormProps> = ({ parentGroupId }) => {

@@ -1,6 +1,6 @@
-const Session = require('../../../models/session');
-const User = require('../../../models/user');
-const { callbackWrapper, setSessionCookie } = require('../../../utils');
+const Session = require('../../models/session');
+const User = require('../../models/user');
+const { callbackWrapper, setSessionCookie } = require('../../utils');
 
 const loginHandler = (req, res, next) => {
   User

@@ -1,8 +1,8 @@
 const async = require('async');
 
-const Group = require('../../../models/group');
-const Item = require('../../../models/item');
-const { parentGroupsAggregation, jsonCallback } = require('../../../utils');
+const Group = require('../../models/group');
+const Item = require('../../models/item');
+const { parentGroupsAggregation, jsonCallback } = require('../../utils');
 
 const groupHandler = (req, res, next) => {
   async.parallel({

@@ -2,6 +2,7 @@ import React from 'react';
 import { redirect, useLoaderData } from 'react-router-dom';
 
 import ParentGroups from '../parent-groups/ParentGroups';
+import UpdateItemForm from '../update-item-form/UpdateItemForm';
 import { TItemData } from '../../types';
 import { checkAuth } from '../../utils';
 
@@ -28,6 +29,13 @@ function Item() {
       <h1>Item { item.name }</h1>
 
       <div>count { item.count }</div>
+
+      <h3>Update item</h3>
+      <UpdateItemForm
+        itemId={item._id}
+        initialName={item.name}
+        initialCount={item.count}
+      />
     </>
   );
 }

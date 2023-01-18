@@ -16,7 +16,7 @@ router.get('/groups/', groupsHandler);
 router.get('/groups/:groupId/', groupHandler);
 router.get('/items/:itemId/', itemHandler);
 
-const postRouter => (url, validators, handler) {
+const postRouter = (url, validators, handler) => {
   router.post(url, ...validators, (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

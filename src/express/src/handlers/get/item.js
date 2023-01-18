@@ -1,7 +1,7 @@
 const async = require('async');
 
-const Item = require('../../../models/item');
-const { parentGroupsAggregation, jsonCallback } = require('../../../utils');
+const Item = require('../../models/item');
+const { parentGroupsAggregation, jsonCallback } = require('../../utils');
 
 const itemHandler = (req, res, next) => {
   async.parallel({

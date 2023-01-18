@@ -39,7 +39,7 @@ const BaseItemForm: FC<TBaseItemFormProps> = ({ url, initialName, initialCount }
         console.log('data', data);
       });
     },
-    [name, count, parentGroupId]
+    [name, count, url]
   );
 
   return (

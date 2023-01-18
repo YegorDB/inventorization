@@ -1,5 +1,5 @@
-const Item = require('../../../models/item');
-const { callbackWrapper } = require('../../../utils');
+const Item = require('../../models/item');
+const { callbackWrapper } = require('../../utils');
 
 const updateItemHandler = (req, res, next) => {
   Item

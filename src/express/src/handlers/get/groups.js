@@ -1,5 +1,5 @@
-const Group = require('../../../models/group');
-const { jsonCallback } = require('../../../utils');
+const Group = require('../../models/group');
+const { jsonCallback } = require('../../utils');
 
 const groupsHandler = (req, res, next) => {
   Group
