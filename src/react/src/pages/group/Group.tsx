@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, redirect, useLoaderData } from 'react-router-dom';
 
-import AddGroupForm from '../add-group-form/AddGroupForm';
-import AddItemForm from '../add-item-form/AddItemForm';
-import ParentGroups from '../parent-groups/ParentGroups';
+import AddGroupForm from '../../components/add-group-form/AddGroupForm';
+import AddItemForm from '../../components/add-item-form/AddItemForm';
+import ParentGroups from '../../components/parent-groups/ParentGroups';
 import { TItem, TGroup, TGroupData } from '../../types';
 import { checkAuth } from '../../utils';
 

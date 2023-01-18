@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, redirect, useLoaderData } from 'react-router-dom';
 
-import AddGroupForm from '../add-group-form/AddGroupForm';
+import AddGroupForm from '../../components/add-group-form/AddGroupForm';
 import { TGroup } from '../../types';
 import { checkAuth } from '../../utils';
 

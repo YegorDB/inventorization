@@ -1,8 +1,8 @@
 import React from 'react';
 import { redirect, useLoaderData } from 'react-router-dom';
 
-import ParentGroups from '../parent-groups/ParentGroups';
-import UpdateItemForm from '../update-item-form/UpdateItemForm';
+import ParentGroups from '../../components/parent-groups/ParentGroups';
+import UpdateItemForm from '../../components/update-item-form/UpdateItemForm';
 import { TItemData } from '../../types';
 import { checkAuth } from '../../utils';
 

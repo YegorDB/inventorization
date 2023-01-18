@@ -5,9 +5,9 @@ import {
 } from 'react-router-dom';
 
 import AuthLogin, { authLoginLoader, authLoginAction } from '../auth-login/AuthLogin';
-import Group, { groupLoader } from '../group/Group';
-import Item, { itemLoader } from '../item/Item';
-import Main, { mainLoader } from '../main/Main';
+import Group, { groupLoader } from '../../pages/group/Group';
+import Item, { itemLoader } from '../../pages/item/Item';
+import Main, { mainLoader } from '../../pages/main/Main';
 
 const router = createBrowserRouter([
   {
