@@ -1,3 +1,5 @@
+import React from 'react';
+
 type TBaseItem = {
   _id: string,
   name: string,
@@ -62,3 +64,8 @@ export type TUpdateItemFormProps = {
 export type TParentGroupsProps = {
   groups: TGroup[],
 };
+
+export type TModalProps = {
+  handleClose: Function,
+  children: React.ReactNode,
+}
