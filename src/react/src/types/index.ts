@@ -68,4 +68,10 @@ export type TParentGroupsProps = {
 export type TModalProps = {
   handleClose: Function,
   children: React.ReactNode,
+  title?: string,
+}
+
+export type TModalHeaderProps = {
+  closeHandler: React.MouseEventHandler,
+  title?: string,
 }

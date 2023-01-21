@@ -4,7 +4,7 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 
-import AuthLogin, { authLoginLoader, authLoginAction } from '../auth-login/AuthLogin';
+import AuthLogin, { authLoginLoader, authLoginAction } from '../../pages/auth-login/AuthLogin';
 import Group, { groupLoader } from '../../pages/group/Group';
 import Item, { itemLoader } from '../../pages/item/Item';
 import Main, { mainLoader } from '../../pages/main/Main';
