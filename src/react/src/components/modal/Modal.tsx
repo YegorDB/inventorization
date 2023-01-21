@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 
-import { TModalProps, TModalHeaderProps } from '../../types';
+import { TModalProps, TModalHeaderProps, TModalOverlayProps } from '../../types';
 
 import styles from './Modal.module.css';
 
@@ -18,6 +18,12 @@ const ModalHeader: FC<TModalHeaderProps> = ({
         Close
       </div>
     </div>
+  );
+}
+
+const ModalOverlay: FC<TModalOverlayProps> = ({ closeHandler }) => {
+  return (
+    <div onClick={closeHandler} className={styles.ModalOverlay}></div>
   );
 }
 
@@ -50,6 +56,7 @@ const Modal: FC<TModalProps> = ({
 
   return createPortal(
     <>
+      <ModalOverlay closeHandler={closeHandler} />
       <div className={styles.Modal}>
         <ModalHeader closeHandler={closeHandler} title={title} />
         {children}

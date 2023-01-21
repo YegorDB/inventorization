@@ -75,3 +75,7 @@ export type TModalHeaderProps = {
   closeHandler: React.MouseEventHandler,
   title?: string,
 }
+
+export type TModalOverlayProps = {
+  closeHandler: React.MouseEventHandler,
+}
