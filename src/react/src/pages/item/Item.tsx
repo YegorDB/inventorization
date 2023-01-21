@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { redirect, useLoaderData } from 'react-router-dom';
 
+import Modal from '../../components/modal/Modal';
 import ParentGroups from '../../components/parent-groups/ParentGroups';
 import UpdateItemForm from '../../components/update-item-form/UpdateItemForm';
 import { TItemData } from '../../types';
@@ -22,6 +23,18 @@ function Item() {
   // @ts-ignore
   const {item, parentGroups} = useLoaderData();
 
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openModal = useCallback(
+    () => setModalOpen(true),
+    []
+  );
+
+  const closeModal = useCallback(
+    () => setModalOpen(false),
+    []
+  );
+
   return (
     <>
       <ParentGroups groups={ parentGroups } />
@@ -30,12 +43,19 @@ function Item() {
 
       <div>count { item.count }</div>
 
-      <h3>Update item</h3>
-      <UpdateItemForm
-        itemId={item._id}
-        initialName={item.name}
-        initialCount={item.count}
-      />
+      <button onClick={openModal} >
+        Edit item
+      </button>
+
+      {modalOpen && (
+        <Modal handleClose={closeModal} title="Edit item">
+          <UpdateItemForm
+            itemId={item._id}
+            initialName={item.name}
+            initialCount={item.count}
+          />
+        </Modal>
+      )}
     </>
   );
 }
