@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { Link, redirect, useLoaderData } from 'react-router-dom';
 
 import AddGroupForm from '../../components/add-group-form/AddGroupForm';
 import AddItemForm from '../../components/add-item-form/AddItemForm';
+import Modal from '../../components/modal/Modal';
 import ParentGroups from '../../components/parent-groups/ParentGroups';
 import { TItem, TGroup, TGroupData } from '../../types';
 import { checkAuth } from '../../utils';
@@ -22,6 +23,14 @@ export async function groupLoader({ params }): TGroupData | Response {
 function Group() {
   // @ts-ignore
   const { group, groups, items, parentGroups } = useLoaderData();
+
+  const [addGroupModalOpen, setAddGroupModalOpen] = useState(false);
+  const openAddGroupModal = useCallback(() => setAddGroupModalOpen(true), []);
+  const closeAddGroupModal = useCallback(() => setAddGroupModalOpen(false), []);
+
+  const [addItemModalOpen, setAddItemModalOpen] = useState(false);
+  const openAddItemModal = useCallback(() => setAddItemModalOpen(true), []);
+  const closeAddItemModal = useCallback(() => setAddItemModalOpen(false), []);
 
   return (
     <>
@@ -43,11 +52,25 @@ function Group() {
         </Link>
       )) : <div>Empty</div>}
 
-      <h3>Add group</h3>
-      <AddGroupForm parentGroupId={group._id} />
+      <button onClick={openAddGroupModal} >
+        Add group
+      </button>
 
-      <h3>Add item</h3>
-      <AddItemForm parentGroupId={group._id} />
+      <button onClick={openAddItemModal} >
+        Add item
+      </button>
+
+      {addGroupModalOpen && (
+        <Modal handleClose={closeAddGroupModal} title="Add group">
+          <AddGroupForm parentGroupId={group._id} />
+        </Modal>
+      )}
+
+      {addItemModalOpen && (
+        <Modal handleClose={closeAddItemModal} title="Add item">
+          <AddItemForm parentGroupId={group._id} />
+        </Modal>
+      )}
     </>
   );
 }
