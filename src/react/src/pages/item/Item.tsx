@@ -24,16 +24,8 @@ function Item() {
   const {item, parentGroups} = useLoaderData();
 
   const [modalOpen, setModalOpen] = useState(false);
-
-  const openModal = useCallback(
-    () => setModalOpen(true),
-    []
-  );
-
-  const closeModal = useCallback(
-    () => setModalOpen(false),
-    []
-  );
+  const openModal = useCallback(() => setModalOpen(true), []);
+  const closeModal = useCallback(() => setModalOpen(false), []);
 
   return (
     <>

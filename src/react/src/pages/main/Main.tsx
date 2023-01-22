@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { Link, redirect, useLoaderData } from 'react-router-dom';
 
 import AddGroupForm from '../../components/add-group-form/AddGroupForm';
+import Modal from '../../components/modal/Modal';
 import { TGroup } from '../../types';
 import { checkAuth } from '../../utils';
 
@@ -21,6 +22,10 @@ function Main() {
   // @ts-ignore
   const groups: TGroup[] = useLoaderData();
 
+  const [modalOpen, setModalOpen] = useState(false);
+  const openModal = useCallback(() => setModalOpen(true), []);
+  const closeModal = useCallback(() => setModalOpen(false), []);
+
   return (
     <>
       <h1>Main</h1>
@@ -32,8 +37,15 @@ function Main() {
         </Link>
       ))}
 
-      <h3>Add group</h3>
-      <AddGroupForm parentGroupId="_" />
+      <button onClick={openModal} >
+        Add group
+      </button>
+
+      {modalOpen && (
+        <Modal handleClose={closeModal} title="Add group">
+          <AddGroupForm parentGroupId="_" />
+        </Modal>
+      )}
     </>
   );
 }
