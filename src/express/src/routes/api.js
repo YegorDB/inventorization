@@ -2,7 +2,9 @@ const express = require('express');
 const { validationResult } = require('express-validator');
 
 const {
-  authCheckHandler, groupHandler, groupsHandler, itemHandler,
+  authCheckHandler,
+  groupHandler, groupsHandler,
+  itemHandler, neededItemsHandler,
 } = require('../handlers/get');
 const {
   addGroupHandler, addItemHandler, loginHandler, updateItemHandler,
@@ -15,6 +17,7 @@ router.get('/auth/check/', authCheckHandler);
 router.get('/groups/', groupsHandler);
 router.get('/groups/:groupId/', groupHandler);
 router.get('/items/:itemId/', itemHandler);
+router.get('/needed-items/', neededItemsHandler);
 
 const postRouter = (url, validators, handler) => {
   router.post(url, ...validators, (req, res, next) => {

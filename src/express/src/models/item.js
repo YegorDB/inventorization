@@ -9,6 +9,10 @@ const itemSchema = new mongoose.Schema({
       type: Number,
       min: 0
     },
+    neededCount: {
+      type: Number,
+      min: 0
+    },
     group: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Group'
