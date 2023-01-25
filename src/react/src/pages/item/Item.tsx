@@ -34,6 +34,7 @@ function Item() {
       <h1>Item { item.name }</h1>
 
       <div>count { item.count }</div>
+      <div>needed count { item.neededCount }</div>
 
       <button onClick={openModal} >
         Edit item
@@ -45,6 +46,7 @@ function Item() {
             itemId={item._id}
             initialName={item.name}
             initialCount={item.count}
+            initialNeededCount={item.neededCount}
           />
         </Modal>
       )}

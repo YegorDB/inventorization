@@ -4,6 +4,7 @@ type TBaseItem = {
   _id: string,
   name: string,
   count: number,
+  neededCount: number,
   __v: number,
 };
 
@@ -49,6 +50,7 @@ export type TBaseItemFormProps = {
   url: string,
   initialName?: string,
   initialCount?: number,
+  initialNeededCount?: number,
 };
 
 export type TAddItemFormProps = {
@@ -59,6 +61,7 @@ export type TUpdateItemFormProps = {
   itemId: string,
   initialName: string,
   initialCount: number,
+  initialNeededCount: number,
 };
 
 export type TParentGroupsProps = {

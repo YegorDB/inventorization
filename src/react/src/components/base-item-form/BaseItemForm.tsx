@@ -4,9 +4,15 @@ import React, {
 
 import { TBaseItemFormProps } from '../../types';
 
-const BaseItemForm: FC<TBaseItemFormProps> = ({ url, initialName, initialCount }) => {
+const BaseItemForm: FC<TBaseItemFormProps> = ({
+  url,
+  initialName,
+  initialCount,
+  initialNeededCount
+}) => {
   const [name, setName] = useState<string>(initialName || '');
   const [count, setCount] = useState<number>(initialCount || 0);
+  const [neededCount, setNeededCount] = useState<number>(initialNeededCount || 0);
 
   const changeName = useCallback<ChangeEventHandler<HTMLInputElement>>(
     e => setName(e.target.value),
@@ -15,6 +21,11 @@ const BaseItemForm: FC<TBaseItemFormProps> = ({ url, initialName, initialCount }
 
   const changeCount = useCallback<ChangeEventHandler<HTMLInputElement>>(
     e => setCount(parseInt(e.target.value)),
+    []
+  );
+
+  const changeNeededCount = useCallback<ChangeEventHandler<HTMLInputElement>>(
+    e => setNeededCount(parseInt(e.target.value)),
     []
   );
 
@@ -30,6 +41,7 @@ const BaseItemForm: FC<TBaseItemFormProps> = ({ url, initialName, initialCount }
         body: JSON.stringify({
           name: name,
           count: count,
+          neededCount: neededCount,
         }),
       })
       .then((response) => {
@@ -39,7 +51,7 @@ const BaseItemForm: FC<TBaseItemFormProps> = ({ url, initialName, initialCount }
         console.log('data', data);
       });
     },
-    [name, count, url]
+    [name, count, neededCount, url]
   );
 
   return (
@@ -65,6 +77,18 @@ const BaseItemForm: FC<TBaseItemFormProps> = ({ url, initialName, initialCount }
             onChange={ changeCount }
             value={ count }
             name="count"
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          Needed count
+          <input
+            type="number"
+            placeholder="Needed count"
+            onChange={ changeNeededCount }
+            value={ neededCount }
+            name="neededCount"
           />
         </label>
       </div>

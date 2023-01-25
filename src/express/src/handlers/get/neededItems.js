@@ -5,7 +5,7 @@ const { jsonCallback } = require('../../utils');
 
 const neededItemsHandler = (req, res, next) => {
   Item
-  .find({ neededCount: { $gt: '$count' } })
+  .$where('this.neededCount > this.count')
   .populate('group')
   .exec(jsonCallback(res, next));
 };
