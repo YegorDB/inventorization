@@ -46,6 +46,10 @@ function Main() {
           <AddGroupForm parentGroupId="_" />
         </Modal>
       )}
+
+      <div>
+        <Link to="/needed-items">Needed items</Link>
+      </div>
     </>
   );
 }

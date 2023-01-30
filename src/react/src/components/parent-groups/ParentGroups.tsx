@@ -9,8 +9,8 @@ const ParentGroups: FC<TParentGroupsProps> = ({ groups }) => {
       <Link to="/">
         <div>Main</div>
       </Link>
-      {groups.map(group => (
-        <Link to={`/group/${group._id}`} key={`/group/${group._id}`}>
+      {groups && groups.map(group => (
+        <Link to={`/group/${group._id}`} key={group._id}>
           <div>{group.name}</div>
         </Link>
       ))}

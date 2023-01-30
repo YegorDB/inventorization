@@ -65,7 +65,7 @@ export type TUpdateItemFormProps = {
 };
 
 export type TParentGroupsProps = {
-  groups: TGroup[],
+  groups?: TGroup[],
 };
 
 export type TModalProps = {
