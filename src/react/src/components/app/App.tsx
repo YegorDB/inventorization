@@ -8,7 +8,7 @@ import AuthLogin, { authLoginLoader, authLoginAction } from '../../pages/auth-lo
 import Group, { groupLoader } from '../../pages/group/Group';
 import Item, { itemLoader } from '../../pages/item/Item';
 import Main, { mainLoader } from '../../pages/main/Main';
-import NeededItems, { neededItemsLoader } from '../../pages/needed-items/NeededItems';
+import NeededItemsPage, { neededItemsLoader } from '../../pages/needed-items/NeededItems';
 
 const router = createBrowserRouter([
   {
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/needed-items',
-    element: <NeededItems />,
+    element: <NeededItemsPage />,
     loader: neededItemsLoader,
   },
 ]);

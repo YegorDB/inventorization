@@ -82,3 +82,7 @@ export type TModalHeaderProps = {
 export type TModalOverlayProps = {
   closeHandler: React.MouseEventHandler,
 }
+
+export type TNeededItemsProps = {
+  items: TFullItem[],
+}
