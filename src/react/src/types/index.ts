@@ -86,3 +86,8 @@ export type TModalOverlayProps = {
 export type TNeededItemsProps = {
   items: TFullItem[],
 }
+
+export type TItemCountProps = {
+  count: number;
+  setCount: Function;
+};
