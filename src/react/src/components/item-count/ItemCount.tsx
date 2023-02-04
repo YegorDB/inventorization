@@ -1,14 +1,18 @@
-import React, { FC, useCallback } from 'react';
+import React, {
+  ChangeEventHandler, MouseEventHandler, FC, useCallback
+} from 'react';
 
 import { TItemCountProps } from '../../types';
 
+import styles from './ItemCount.module.css';
+
 const ItemCount: FC<TItemCountProps> = ({ count, setCount }) => {
-  const onClickMinus = useCallback<ChangeEventHandler<HTMLInputElement>>(
+  const onClickMinus = useCallback<MouseEventHandler<HTMLButtonElement>>(
     e => setCount(count - 1),
     [count, setCount]
   );
 
-  const onClickPlus = useCallback<ChangeEventHandler<HTMLInputElement>>(
+  const onClickPlus = useCallback<MouseEventHandler<HTMLButtonElement>>(
     e => setCount(count + 1),
     [count, setCount]
   );
@@ -19,22 +23,24 @@ const ItemCount: FC<TItemCountProps> = ({ count, setCount }) => {
   );
 
   return (
-    <div>
-      <div>
-        <button onClick={ onClickMinus }>-</button>
-      </div>
-      <div>
-        <input
-          type="number"
-          placeholder="Count"
-          onChange={ onChange }
-          value={ initialCount }
-          name="count"
-        />
-      </div>
-      <div>
-        <button onClick={ onClickPlus }>+</button>
-      </div>
+    <div className={ styles.ItemCount }>
+      <button
+        onClick={ onClickMinus }
+        className={ styles.ItemCountButton }
+      >-</button>
+
+      <input
+        type="number"
+        placeholder="Count"
+        onChange={ onChange }
+        value={ count }
+        name="count"
+      />
+
+      <button
+        onClick={ onClickPlus }
+        className={ styles.ItemCountButton }
+      >+</button>
     </div>
   );
 }

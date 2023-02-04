@@ -5,6 +5,7 @@ import ItemCount from '../item-count/ItemCount';
 import { TFullItem, TNeededItemsProps } from '../../types';
 
 const NeededItem: FC<TFullItem> = ({
+  _id,
   name,
   count: initialCount,
   neededCount,
@@ -14,9 +15,9 @@ const NeededItem: FC<TFullItem> = ({
 
   return (
     <>
-      <div>Name: {name}</div>
-      <ItemCount count={count} setCount={setCount} />
-      <div>Count needed: {neededCount - count}</div>
+      <div><Link to={`/item/${_id}`}>{name}</Link></div>
+      <div>Count: <ItemCount count={count} setCount={setCount} /></div>
+      <div>Nedded count: {neededCount}</div>
       <div>Group: <Link to={`/group/${group._id}`}>{group.name}</Link></div>
     </>
   );

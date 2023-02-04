@@ -1,0 +1,10 @@
+.ItemCount {
+  display: flex;
+  gap: 1em;
+}
+
+.ItemCountButton {
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+}
