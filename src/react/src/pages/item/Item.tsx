@@ -4,19 +4,16 @@ import { redirect, useLoaderData } from 'react-router-dom';
 import Modal from '../../components/modal/Modal';
 import ParentGroups from '../../components/parent-groups/ParentGroups';
 import UpdateItemForm from '../../components/update-item-form/UpdateItemForm';
-import { TItemData } from '../../types';
-import { checkAuth } from '../../utils';
+import { checkAuth, itemRequest } from '../../utils';
 
 // @ts-ignore
-export async function itemLoader({ params }): TItemData | Response {
+export async function itemLoader({ params }) {
   const isAuthenticated = await checkAuth();
   if (!isAuthenticated) {
     return redirect('/auth/login');
   }
 
-  return await fetch(`/api/items/${params.itemId}`).then((response) => {
-    return response.json();
-  });
+  return await itemRequest(params.itemId);
 }
 
 function Item() {

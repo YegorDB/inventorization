@@ -1,93 +1,28 @@
-import React from 'react';
+export type {
+  TItem,
+  TFullItem,
+  TGroup,
+  TFullGroup,
+} from './objects';
 
-type TBaseItem = {
-  _id: string,
-  name: string,
-  count: number,
-  neededCount: number,
-  __v: number,
-};
+export type {
+  TLoginRequestData,
+  TSuccessResponseData,
+  TItemResponseData,
+  TGroupResponseData,
+  TMainGroupsResponseData,
+  TNeededItemsResponseData,
+} from './api';
 
-export type TItem = TBaseItem & {
-  group: string,
-};
-
-export type TFullItem = TBaseItem & {
-  group: TGroup,
-};
-
-export type TItemData = {
-  item: TFullItem,
-  parentGroups: TGroup[],
-};
-
-type TBaseGroup = {
-  _id: string,
-  name: string,
-  __v: number,
-};
-
-export type TGroup = TBaseGroup & {
-  group: string,
-};
-
-export type TFullGroup = TBaseGroup & {
-  group?: TGroup,
-};
-
-export type TGroupData = {
-  group: TFullGroup,
-  groups: TGroup[],
-  items: TItem[],
-  parentGroups: TGroup[],
-};
-
-export type TAddGroupFormProps = {
-  parentGroupId: string,
-};
-
-export type TBaseItemFormProps = {
-  url: string,
-  initialName?: string,
-  initialCount?: number,
-  initialNeededCount?: number,
-};
-
-export type TAddItemFormProps = {
-  parentGroupId: string,
-};
-
-export type TUpdateItemFormProps = {
-  itemId: string,
-  initialName: string,
-  initialCount: number,
-  initialNeededCount: number,
-};
-
-export type TParentGroupsProps = {
-  groups?: TGroup[],
-};
-
-export type TModalProps = {
-  handleClose: Function,
-  children: React.ReactNode,
-  title?: string,
-}
-
-export type TModalHeaderProps = {
-  closeHandler: React.MouseEventHandler,
-  title?: string,
-}
-
-export type TModalOverlayProps = {
-  closeHandler: React.MouseEventHandler,
-}
-
-export type TNeededItemsProps = {
-  items: TFullItem[],
-}
-
-export type TItemCountProps = {
-  count: number;
-  setCount: Function;
-};
+export type {
+  TAddGroupFormProps,
+  TBaseItemFormProps,
+  TAddItemFormProps,
+  TUpdateItemFormProps,
+  TParentGroupsProps,
+  TModalProps,
+  TModalHeaderProps,
+  TModalOverlayProps,
+  TNeededItemsProps,
+  TItemCountProps,
+} from './props';

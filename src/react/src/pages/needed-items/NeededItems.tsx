@@ -1,21 +1,19 @@
 import React from 'react';
-import { Link, redirect, useLoaderData } from 'react-router-dom';
+import { redirect, useLoaderData } from 'react-router-dom';
 
 import NeededItems from '../../components/needed-items/NeededItems';
 import ParentGroups from '../../components/parent-groups/ParentGroups';
 import { TFullItem } from '../../types';
-import { checkAuth } from '../../utils';
+import { checkAuth, neededItemsRequest } from '../../utils';
 
 // @ts-ignore
-export async function neededItemsLoader({ params }): TFullItem[] | Response {
+export async function neededItemsLoader({ params }) {
   const isAuthenticated = await checkAuth();
   if (!isAuthenticated) {
     return redirect('/auth/login');
   }
 
-  return await fetch('/api/needed-items/').then((response) => {
-    return response.json();
-  });
+  return await neededItemsRequest();
 }
 
 function NeededItemsPage() {

@@ -4,7 +4,7 @@ import { Link, redirect, useLoaderData } from 'react-router-dom';
 import AddGroupForm from '../../components/add-group-form/AddGroupForm';
 import Modal from '../../components/modal/Modal';
 import { TGroup } from '../../types';
-import { checkAuth } from '../../utils';
+import { checkAuth, mainGroupsRequest } from '../../utils';
 
 // @ts-ignore
 export async function mainLoader({ params }): TGroup[] | Response {
@@ -13,9 +13,7 @@ export async function mainLoader({ params }): TGroup[] | Response {
     return redirect('/auth/login');
   }
 
-  return await fetch('/api/groups/').then((response) => {
-    return response.json();
-  });
+  return await mainGroupsRequest();
 }
 
 function Main() {

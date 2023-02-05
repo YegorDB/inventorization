@@ -5,19 +5,17 @@ import AddGroupForm from '../../components/add-group-form/AddGroupForm';
 import AddItemForm from '../../components/add-item-form/AddItemForm';
 import Modal from '../../components/modal/Modal';
 import ParentGroups from '../../components/parent-groups/ParentGroups';
-import { TItem, TGroup, TGroupData } from '../../types';
-import { checkAuth } from '../../utils';
+import { TItem, TGroup } from '../../types';
+import { checkAuth, groupRequest } from '../../utils';
 
 // @ts-ignore
-export async function groupLoader({ params }): TGroupData | Response {
+export async function groupLoader({ params }) {
   const isAuthenticated = await checkAuth();
   if (!isAuthenticated) {
     return redirect('/auth/login');
   }
 
-  return await fetch(`/api/groups/${params.groupId}`).then((response) => {
-    return response.json();
-  });
+  return await groupRequest(params.groupId);
 }
 
 function Group() {

@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
 import { Form, redirect, useActionData } from 'react-router-dom';
 
-import { checkAuth } from '../../utils';
+import { TLoginRequestData } from '../../types';
+import { checkAuth, loginRequest } from '../../utils';
 
 // @ts-ignore
-export async function authLoginLoader(): null | Response {
+export async function authLoginLoader() {
   const isAuthenticated = await checkAuth();
   if (isAuthenticated) {
     return redirect('/');
@@ -14,19 +15,12 @@ export async function authLoginLoader(): null | Response {
 }
 
 // @ts-ignore
-export async function authLoginAction({ request }): bool | Response {
+export async function authLoginAction({ request }): boolean | Response {
   const formData = await request.formData();
 
-  const data = await fetch('/api/auth/login/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(Object.fromEntries(formData.entries()))
-  })
-  .then(response => {
-    return response.json();
-  });
+  const data = await loginRequest(
+    Object.fromEntries(formData.entries()) as TLoginRequestData,
+  );
 
   if (data.success) {
     return redirect('/');

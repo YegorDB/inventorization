@@ -1,5 +1,10 @@
-export async function checkAuth() {
-  const data = await fetch('/api/auth/check/').then(res => res.json());
-
-  return data.success;
-}
+export {
+  request,
+  postRequest,
+  checkAuth,
+  loginRequest,
+  itemRequest,
+  groupRequest,
+  mainGroupsRequest,
+  neededItemsRequest,
+} from './api';
