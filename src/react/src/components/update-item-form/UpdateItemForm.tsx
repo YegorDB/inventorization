@@ -9,11 +9,11 @@ const UpdateItemForm: FC<TUpdateItemFormProps> = ({
   initialCount,
   initialNeededCount
 }) => {
-  const url = `/api/items/update/${itemId}/`;
+  const path = `/api/items/update/${itemId}/`;
 
   return (
     <BaseItemForm
-      url={url}
+      path={path}
       initialName={initialName}
       initialCount={initialCount}
       initialNeededCount={initialNeededCount}

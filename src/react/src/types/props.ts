@@ -7,7 +7,7 @@ export type TAddGroupFormProps = {
 };
 
 export type TBaseItemFormProps = {
-  url: string,
+  path: string,
   initialName?: string,
   initialCount?: number,
   initialNeededCount?: number,

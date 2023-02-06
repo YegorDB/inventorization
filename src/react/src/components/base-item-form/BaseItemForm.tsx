@@ -3,9 +3,10 @@ import React, {
 } from 'react';
 
 import { TBaseItemFormProps } from '../../types';
+import { postRequest } from '../../utils';
 
 const BaseItemForm: FC<TBaseItemFormProps> = ({
-  url,
+  path,
   initialName,
   initialCount,
   initialNeededCount
@@ -33,25 +34,16 @@ const BaseItemForm: FC<TBaseItemFormProps> = ({
     e => {
       e.preventDefault();
 
-      fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: name,
-          count: count,
-          neededCount: neededCount,
-        }),
-      })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log('data', data);
+      const requestData = {
+        name: name,
+        count: count,
+        neededCount: neededCount,
+      };
+      postRequest(path, requestData, responseData => {
+        console.log('responseData', responseData);
       });
     },
-    [name, count, neededCount, url]
+    [name, count, neededCount, path]
   );
 
   return (

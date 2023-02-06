@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 
 import { TAddGroupFormProps } from '../../types';
+import { postRequest } from '../../utils';
 
 const AddGroupForm: FC<TAddGroupFormProps> = ({ parentGroupId }) => {
   const [name, setName] = useState<string>('');
@@ -16,20 +17,12 @@ const AddGroupForm: FC<TAddGroupFormProps> = ({ parentGroupId }) => {
     e => {
       e.preventDefault();
 
-      fetch(`/api/groups/add/${parentGroupId}/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: name,
-        }),
-      })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log('data', data);
+      const url = `/api/groups/add/${parentGroupId}/`;
+      const requestData = {
+        name: name,
+      };
+      postRequest(url, requestData, responseData => {
+        console.log('responseData', responseData);
       });
     },
     [name, parentGroupId]

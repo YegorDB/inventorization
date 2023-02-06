@@ -4,10 +4,10 @@ import BaseItemForm from '../base-item-form/BaseItemForm';
 import { TAddItemFormProps } from '../../types';
 
 const AddItemForm: FC<TAddItemFormProps> = ({ parentGroupId }) => {
-  const url = `/api/items/add/${parentGroupId}/`;
+  const path = `/api/items/add/${parentGroupId}/`;
 
   return (
-    <BaseItemForm url={url} />
+    <BaseItemForm path={path} />
   );
 }
 
