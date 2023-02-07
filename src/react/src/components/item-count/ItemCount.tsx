@@ -6,20 +6,20 @@ import { TItemCountProps } from '../../types';
 
 import styles from './ItemCount.module.css';
 
-const ItemCount: FC<TItemCountProps> = ({ count, setCount }) => {
+const ItemCount: FC<TItemCountProps> = ({ count, callback }) => {
   const onClickMinus = useCallback<MouseEventHandler<HTMLButtonElement>>(
-    e => setCount(count - 1),
-    [count, setCount]
+    e => callback(count - 1),
+    [count, callback]
   );
 
   const onClickPlus = useCallback<MouseEventHandler<HTMLButtonElement>>(
-    e => setCount(count + 1),
-    [count, setCount]
+    e => callback(count + 1),
+    [count, callback]
   );
 
   const onChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
-    e => setCount(parseInt(e.target.value)),
-    [setCount]
+    e => callback(parseInt(e.target.value)),
+    [callback]
   );
 
   return (

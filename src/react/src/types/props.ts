@@ -49,5 +49,5 @@ export type TNeededItemsProps = {
 
 export type TItemCountProps = {
   count: number;
-  setCount: Function;
+  callback: Function;
 };

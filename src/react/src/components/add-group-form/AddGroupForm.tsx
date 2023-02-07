@@ -2,7 +2,7 @@ import React, {
   FC, ChangeEventHandler, FormEventHandler, useCallback, useState
 } from 'react';
 
-import { TAddGroupFormProps } from '../../types';
+import { TAddGroupFormProps, TGroup } from '../../types';
 import { postRequest } from '../../utils';
 
 const AddGroupForm: FC<TAddGroupFormProps> = ({ parentGroupId }) => {
@@ -21,7 +21,7 @@ const AddGroupForm: FC<TAddGroupFormProps> = ({ parentGroupId }) => {
       const requestData = {
         name: name,
       };
-      postRequest(url, requestData, responseData => {
+      postRequest(url, requestData, (responseData: TGroup) => {
         console.log('responseData', responseData);
       });
     },

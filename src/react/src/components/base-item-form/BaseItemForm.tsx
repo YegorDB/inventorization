@@ -2,7 +2,7 @@ import React, {
   FC, ChangeEventHandler, FormEventHandler, useCallback, useState
 } from 'react';
 
-import { TBaseItemFormProps } from '../../types';
+import { TBaseItemFormProps, TItem } from '../../types';
 import { postRequest } from '../../utils';
 
 const BaseItemForm: FC<TBaseItemFormProps> = ({
@@ -39,7 +39,7 @@ const BaseItemForm: FC<TBaseItemFormProps> = ({
         count: count,
         neededCount: neededCount,
       };
-      postRequest(path, requestData, responseData => {
+      postRequest(path, requestData, (responseData: TItem) => {
         console.log('responseData', responseData);
       });
     },
