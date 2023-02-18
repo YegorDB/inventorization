@@ -25,6 +25,7 @@ const ItemCount: FC<TItemCountProps> = ({ count, callback }) => {
   return (
     <div className={ styles.ItemCount }>
       <button
+        type="button"
         onClick={ onClickMinus }
         className={ styles.ItemCountButton }
       >-</button>
@@ -38,6 +39,7 @@ const ItemCount: FC<TItemCountProps> = ({ count, callback }) => {
       />
 
       <button
+        type="button"
         onClick={ onClickPlus }
         className={ styles.ItemCountButton }
       >+</button>

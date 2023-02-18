@@ -2,6 +2,7 @@ import React, {
   FC, ChangeEventHandler, FormEventHandler, useCallback, useState
 } from 'react';
 
+import ItemCount from '../item-count/ItemCount';
 import { TBaseItemFormProps, TItem } from '../../types';
 import { postRequest } from '../../utils';
 
@@ -20,14 +21,14 @@ const BaseItemForm: FC<TBaseItemFormProps> = ({
     []
   );
 
-  const changeCount = useCallback<ChangeEventHandler<HTMLInputElement>>(
-    e => setCount(parseInt(e.target.value)),
-    []
+  const countCallback = useCallback(
+    (newCount: number) => setCount(newCount),
+    [setCount]
   );
 
-  const changeNeededCount = useCallback<ChangeEventHandler<HTMLInputElement>>(
-    e => setNeededCount(parseInt(e.target.value)),
-    []
+  const neededCountCallback = useCallback(
+    (newCount: number) => setNeededCount(newCount),
+    [setNeededCount]
   );
 
   const handle = useCallback<FormEventHandler<HTMLFormElement>>(
@@ -60,30 +61,25 @@ const BaseItemForm: FC<TBaseItemFormProps> = ({
           />
         </label>
       </div>
+
       <div>
-        <label>
-          Count
-          <input
-            type="number"
-            placeholder="Count"
-            onChange={ changeCount }
-            value={ count }
-            name="count"
-          />
-        </label>
+        <div>
+          <label>Count</label>
+        </div>
+        <div>
+          <ItemCount count={count} callback={countCallback} />
+        </div>
       </div>
+
       <div>
-        <label>
-          Needed count
-          <input
-            type="number"
-            placeholder="Needed count"
-            onChange={ changeNeededCount }
-            value={ neededCount }
-            name="neededCount"
-          />
-        </label>
+        <div>
+          <label>Needed count</label>
+        </div>
+        <div>
+          <ItemCount count={neededCount} callback={neededCountCallback} />
+        </div>
       </div>
+
       <input type="submit" />
     </form>
   );
