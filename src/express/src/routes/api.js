@@ -5,6 +5,7 @@ const {
   authCheckHandler,
   groupHandler, groupsHandler,
   itemHandler, neededItemsHandler,
+  searchGroupsHandler, searchItemsHandler,
 } = require('../handlers/get');
 const {
   addGroupHandler, addItemHandler, loginHandler, updateItemHandler,
@@ -18,6 +19,8 @@ router.get('/groups/', groupsHandler);
 router.get('/groups/:groupId/', groupHandler);
 router.get('/items/:itemId/', itemHandler);
 router.get('/needed-items/', neededItemsHandler);
+router.get('/search/groups/', searchGroupsHandler);
+router.get('/search/items/', searchItemsHandler);
 
 const postRouter = (url, validators, handler) => {
   router.post(url, ...validators, (req, res, next) => {
