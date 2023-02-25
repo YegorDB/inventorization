@@ -20,9 +20,9 @@ function Main() {
   // @ts-ignore
   const groups: TGroup[] = useLoaderData();
 
-  const [modalOpen, setModalOpen] = useState(false);
-  const openModal = useCallback(() => setModalOpen(true), []);
-  const closeModal = useCallback(() => setModalOpen(false), []);
+  const [addGroupModalOpen, setAddGroupModalOpen] = useState(false);
+  const openAddGroupModal = useCallback(() => setAddGroupModalOpen(true), []);
+  const closeAddGroupModal = useCallback(() => setAddGroupModalOpen(false), []);
 
   return (
     <>
@@ -35,18 +35,21 @@ function Main() {
         </Link>
       ))}
 
-      <button onClick={openModal} >
+      <button onClick={openAddGroupModal} >
         Add group
       </button>
 
-      {modalOpen && (
-        <Modal handleClose={closeModal} title="Add group">
+      {addGroupModalOpen && (
+        <Modal handleClose={closeAddGroupModal} title="Add group">
           <AddGroupForm parentGroupId="_" />
         </Modal>
       )}
 
       <div>
         <Link to="/needed-items">Needed items</Link>
+      </div>
+      <div>
+        <Link to="/search">Search</Link>
       </div>
     </>
   );

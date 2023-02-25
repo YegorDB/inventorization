@@ -25,4 +25,5 @@ export type {
   TModalOverlayProps,
   TNeededItemsProps,
   TItemCountProps,
+  TSearchTypeItemProps,
 } from './props';

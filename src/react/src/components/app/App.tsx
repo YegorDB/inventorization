@@ -9,6 +9,7 @@ import Group, { groupLoader } from '../../pages/group/Group';
 import Item, { itemLoader } from '../../pages/item/Item';
 import Main, { mainLoader } from '../../pages/main/Main';
 import NeededItemsPage, { neededItemsLoader } from '../../pages/needed-items/NeededItems';
+import SearchPage, { searchLoader } from '../../pages/search/Search';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,11 @@ const router = createBrowserRouter([
     path: '/needed-items',
     element: <NeededItemsPage />,
     loader: neededItemsLoader,
+  },
+  {
+    path: '/search',
+    element: <SearchPage />,
+    loader: searchLoader,
   },
 ]);
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEventHandler } from 'react';
 
 import { TFullItem, TGroup } from './objects';
 
@@ -50,4 +50,11 @@ export type TNeededItemsProps = {
 export type TItemCountProps = {
   count: number;
   callback: Function;
+};
+
+export type TSearchTypeItemProps = {
+  labelText: string;
+  value: string;
+  activeValue: string;
+  changeHandler: ChangeEventHandler<HTMLInputElement>;
 };
