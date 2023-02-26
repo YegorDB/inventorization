@@ -24,3 +24,5 @@ export type TGroupResponseData = {
 export type TMainGroupsResponseData = TGroup[];
 
 export type TNeededItemsResponseData = TFullItem[];
+
+export type TSearchResults = TFullItem[] | TFullGroup[];

@@ -2,8 +2,9 @@ import React, { FC, useCallback, useState, ChangeEventHandler } from 'react';
 import { redirect } from 'react-router-dom';
 
 import ParentGroups from '../../components/parent-groups/ParentGroups';
-import { TSearchTypeItemProps } from '../../types';
-import { checkAuth } from '../../utils';
+import { SearchType } from '../../enums';
+import { TSearchTypeItemProps, TSearchResults } from '../../types';
+import { request, checkAuth } from '../../utils';
 
 // @ts-ignore
 export async function searchLoader({ params }) {
@@ -40,9 +41,27 @@ const SearchTypeTab: FC<TSearchTypeItemProps> = ({
 }
 
 function SearchPage() {
-  const [searchType, setSearchType] = useState('items');
+  const [searchType, setSearchType] = useState<keyof typeof SearchType>(SearchType.items);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchResults, setSearchResults] = useState<TSearchResults>([]);
+
   const changeSearchTypeHandler = useCallback<ChangeEventHandler<HTMLInputElement>>(
     e => setSearchType(e.target.value),
+    []
+  );
+
+  const changeSearchQueryHandler = useCallback<ChangeEventHandler<HTMLInputElement>>(
+    e => {
+      setSearchQuery(e.target.value);
+      request<TSearchResults>(
+        `/api/search/${searchType}/?s=${searchQuery}`,
+        null,
+        (results: TSearchResults) => {
+          console.log('search results', results);
+          setSearchResults(results);
+        }
+      );
+    },
     []
   );
 
@@ -55,16 +74,26 @@ function SearchPage() {
       <div>
         <SearchTypeTab
           labelText="Items"
-          value="items"
+          value={ SearchType.items }
           activeValue={ searchType }
           changeHandler={ changeSearchTypeHandler }
         />
 
         <SearchTypeTab
           labelText="Groups"
-          value="groups"
+          value={ SearchType.groups }
           activeValue={ searchType }
           changeHandler={ changeSearchTypeHandler }
+        />
+      </div>
+
+      <div>
+        <input
+          type="text"
+          placeholder="Search query"
+          onChange={ changeSearchQueryHandler }
+          value={ searchQuery }
+          name="search-query"
         />
       </div>
     </>

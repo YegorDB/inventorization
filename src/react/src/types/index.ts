@@ -12,6 +12,7 @@ export type {
   TGroupResponseData,
   TMainGroupsResponseData,
   TNeededItemsResponseData,
+  TSearchResults,
 } from './api';
 
 export type {
