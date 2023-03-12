@@ -46,7 +46,7 @@ function SearchPage() {
   const [searchResults, setSearchResults] = useState<TSearchResults>([]);
 
   const changeSearchTypeHandler = useCallback<ChangeEventHandler<HTMLInputElement>>(
-    e => setSearchType(e.target.value),
+    e => setSearchType(e.target.value as keyof typeof SearchType),
     []
   );
 
@@ -55,14 +55,14 @@ function SearchPage() {
       setSearchQuery(e.target.value);
       request<TSearchResults>(
         `/api/search/${searchType}/?s=${searchQuery}`,
-        null,
+        undefined,
         (results: TSearchResults) => {
           console.log('search results', results);
           setSearchResults(results);
         }
       );
     },
-    []
+    [searchQuery, searchType]
   );
 
   return (

@@ -1,4 +1,4 @@
 export enum SearchType {
-  items,
-  groups,
+  items = 'items',
+  groups = 'groups',
 }
