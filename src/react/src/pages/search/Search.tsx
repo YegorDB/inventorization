@@ -1,9 +1,16 @@
 import React, { FC, useCallback, useState, ChangeEventHandler } from 'react';
-import { redirect } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
 
 import ParentGroups from '../../components/parent-groups/ParentGroups';
 import { SearchType } from '../../enums';
-import { TSearchTypeItemProps, TSearchResults } from '../../types';
+import {
+  TSearchTypeItemProps,
+  TSearchResults,
+  TItemSearchResultProps,
+  TGroupSearchResultProps,
+  TFullItem,
+  TFullGroup,
+} from '../../types';
 import { request, checkAuth } from '../../utils';
 
 // @ts-ignore
@@ -37,6 +44,46 @@ const SearchTypeTab: FC<TSearchTypeItemProps> = ({
       />
       <label htmlFor={ id } >{ labelText }</label>
     </div>
+  );
+}
+
+const ItemSearchResult: FC<TItemSearchResultProps> = ({ item }) => {
+  return (
+    <>
+      <h4>Item</h4>
+      <div>
+        <Link to={`/item/${item._id}`}>
+          <div>{item.name}</div>
+        </Link>
+      </div>
+      <h4>Group from</h4>
+      <div>
+        <Link to={`/group/${item.group._id}`}>
+          <div>{item.group.name}</div>
+        </Link>
+      </div>
+    </>
+  );
+}
+
+const GroupSearchResult: FC<TGroupSearchResultProps> = ({ group }) => {
+  return (
+    <>
+      <h4>Group</h4>
+      <div>
+        <Link to={`/group/${group._id}`}>
+          <div>{group.name}</div>
+        </Link>
+      </div>
+      <h4>Group from</h4>
+      <div>
+        {group.group ? (
+          <Link to={`/group/${group.group._id}`}>
+            <div>{group.group.name}</div>
+          </Link>
+        ) : <div>Empty</div>}
+      </div>
+    </>
   );
 }
 
@@ -95,6 +142,18 @@ function SearchPage() {
           value={ searchQuery }
           name="search-query"
         />
+      </div>
+
+      <div>
+        {searchType === SearchType.items ? (
+          searchResults.map((item: TFullItem | TFullGroup) => (
+            <ItemSearchResult item={ item as TFullItem } key={ item._id } />
+          ))
+        ) : (
+          searchResults.map((group: TFullItem | TFullGroup) => (
+            <GroupSearchResult group={ group as TFullGroup }  key={ group._id } />
+          ))
+        )}
       </div>
     </>
   );

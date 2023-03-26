@@ -1,6 +1,6 @@
 import React, { ChangeEventHandler } from 'react';
 
-import { TFullItem, TGroup } from './objects';
+import { TFullItem, TFullGroup, TGroup } from './objects';
 
 export type TAddGroupFormProps = {
   parentGroupId: string,
@@ -58,3 +58,11 @@ export type TSearchTypeItemProps = {
   activeValue: string;
   changeHandler: ChangeEventHandler<HTMLInputElement>;
 };
+
+export type TItemSearchResultProps = {
+  item: TFullItem,
+}
+
+export type TGroupSearchResultProps = {
+  group: TFullGroup,
+}

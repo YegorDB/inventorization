@@ -14,6 +14,7 @@ const searchHandler = (model, req, res, next) => {
 
   model
   .find({ name: searchFilter })
+  .populate('group')
   .sort('-_id')
   .skip(offset)
   .limit(limit)

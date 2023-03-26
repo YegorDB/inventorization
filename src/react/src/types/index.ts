@@ -27,4 +27,6 @@ export type {
   TNeededItemsProps,
   TItemCountProps,
   TSearchTypeItemProps,
+  TItemSearchResultProps,
+  TGroupSearchResultProps,
 } from './props';
