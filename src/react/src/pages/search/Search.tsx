@@ -1,4 +1,6 @@
-import React, { FC, useCallback, useState, ChangeEventHandler } from 'react';
+import React, {
+  FC, useCallback, useState, ChangeEventHandler, FormEventHandler
+} from 'react';
 import { Link, redirect } from 'react-router-dom';
 
 import ParentGroups from '../../components/parent-groups/ParentGroups';
@@ -93,13 +95,22 @@ function SearchPage() {
   const [searchResults, setSearchResults] = useState<TSearchResults>([]);
 
   const changeSearchTypeHandler = useCallback<ChangeEventHandler<HTMLInputElement>>(
-    e => setSearchType(e.target.value as keyof typeof SearchType),
+    e => {
+      setSearchResults([]);
+      setSearchType(e.target.value as keyof typeof SearchType);
+    },
     []
   );
 
   const changeSearchQueryHandler = useCallback<ChangeEventHandler<HTMLInputElement>>(
+    e => setSearchQuery(e.target.value),
+    []
+  );
+
+  const searchHandler = useCallback<FormEventHandler<HTMLFormElement>>(
     e => {
-      setSearchQuery(e.target.value);
+      e.preventDefault();
+
       request<TSearchResults>(
         `/api/search/${searchType}/?s=${searchQuery}`,
         undefined,
@@ -118,31 +129,37 @@ function SearchPage() {
 
       <h1>Search</h1>
 
-      <div>
-        <SearchTypeTab
-          labelText="Items"
-          value={ SearchType.items }
-          activeValue={ searchType }
-          changeHandler={ changeSearchTypeHandler }
-        />
+      <form onSubmit={ searchHandler }>
+        <div>
+          <SearchTypeTab
+            labelText="Items"
+            value={ SearchType.items }
+            activeValue={ searchType }
+            changeHandler={ changeSearchTypeHandler }
+          />
 
-        <SearchTypeTab
-          labelText="Groups"
-          value={ SearchType.groups }
-          activeValue={ searchType }
-          changeHandler={ changeSearchTypeHandler }
-        />
-      </div>
+          <SearchTypeTab
+            labelText="Groups"
+            value={ SearchType.groups }
+            activeValue={ searchType }
+            changeHandler={ changeSearchTypeHandler }
+          />
+        </div>
 
-      <div>
-        <input
-          type="text"
-          placeholder="Search query"
-          onChange={ changeSearchQueryHandler }
-          value={ searchQuery }
-          name="search-query"
-        />
-      </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Search query"
+            onChange={ changeSearchQueryHandler }
+            value={ searchQuery }
+            name="search-query"
+          />
+        </div>
+
+        <div>
+          <input type="submit" value="Search" />
+        </div>
+      </form>
 
       <div>
         {searchType === SearchType.items ? (
