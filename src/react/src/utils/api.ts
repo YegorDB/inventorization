@@ -11,8 +11,19 @@ export async function request<T>(
   path: string,
   init?: RequestInit,
   callback?: Function,
+  errorHandler?: Function,
 ): Promise<T> {
-  const data = await fetch(path, init).then(res => res.json());
+  const data = await (
+    fetch(path, init)
+    .then(res => res.json())
+    .catch((err: Error) => {
+      console.error(`${path} error\n`, err);
+      if (errorHandler) {
+        errorHandler(err);
+      }
+    })
+  );
+
   if (callback) {
     callback(data);
   }
