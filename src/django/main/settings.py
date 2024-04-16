@@ -13,6 +13,7 @@ DEVELOPMENT = os.environ.get('DEVELOPMENT', '0') == '1'
 DEBUG = DEVELOPMENT
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(',')
+CSRF_TRUSTED_ORIGINS = ['http://0.0.0.0']
 
 
 # Application definition
