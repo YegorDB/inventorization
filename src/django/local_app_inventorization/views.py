@@ -4,6 +4,22 @@ from django.db import connection
 from django.http import JsonResponse
 from django.views import View
 
+from local_app_inventorization.models import Group
+
+
+class GetRootGroups(View):
+    async def get(self, request, *args, **kwargs):
+        groups = Group.objects.filter(group=None)
+
+        return JsonResponse([
+            {
+                'id': g.id,
+                'name': g.name,
+                'group_id': None,
+            }
+            async for g in groups
+        ], safe=False)
+
 
 class GetGroupParents(View):
     async def get(self, request, group_id, *args, **kwargs):
