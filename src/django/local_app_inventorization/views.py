@@ -1,10 +1,12 @@
+import asyncio
+
 from asgiref.sync import sync_to_async
 
 from django.db import connection
 from django.http import JsonResponse
 from django.views import View
 
-from local_app_inventorization.models import Group
+from local_app_inventorization.models import Group, Item
 
 
 class GetRootGroups(View):
@@ -12,13 +14,35 @@ class GetRootGroups(View):
         groups = Group.objects.filter(group=None)
 
         return JsonResponse([
-            {
-                'id': g.id,
-                'name': g.name,
-                'group_id': None,
-            }
+            g.to_dict()
             async for g in groups
         ], safe=False)
+
+
+class GetGroup(View):
+    async def get(self, request, group_id, *args, **kwargs):
+        group, groups, items = await asyncio.gather(
+            self._get_group(group_id),
+            self._get_groups(group_id),
+            self._get_items(group_id),
+        )
+
+        return JsonResponse({
+            'group': group.to_dict(),
+            'groups': [g.to_dict() for g in groups],
+            'items': [i.to_dict() for i in items]
+        })
+
+    async def _get_group(self, group_id):
+        return await Group.objects.filter(id=group_id).afirst()
+
+    async def _get_groups(self, group_id):
+        groups = Group.objects.filter(group_id=group_id)
+        return [g async for g in groups]
+
+    async def _get_items(self, group_id):
+        items = Item.objects.filter(group_id=group_id)
+        return [i async for i in items]
 
 
 class GetGroupParents(View):

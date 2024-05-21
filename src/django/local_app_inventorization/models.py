@@ -11,6 +11,13 @@ class Group(models.Model):
         null=True
     )
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'group_id': self.group_id,
+        }
+
 
 class Item(models.Model):
     name = models.CharField(max_length=100)
@@ -23,3 +30,12 @@ class Item(models.Model):
         blank=False,
         null=False
     )
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'count': self.count,
+            'needed_count': self.needed_count,
+            'group_id': self.group_id,
+        }
