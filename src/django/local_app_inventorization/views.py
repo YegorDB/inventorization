@@ -2,6 +2,7 @@ import asyncio
 
 from asgiref.sync import sync_to_async
 
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import connection
 from django.http import JsonResponse
 from django.views import View
@@ -28,13 +29,16 @@ class GetGroup(View):
         )
 
         return JsonResponse({
-            'group': group.to_dict(),
+            'group': group.to_full_dict() if group else None,
             'groups': [g.to_dict() for g in groups],
             'items': [i.to_dict() for i in items]
         })
 
     async def _get_group(self, group_id):
-        return await Group.objects.filter(id=group_id).afirst()
+        try:
+            return await Group.objects.select_related('group').aget(id=group_id)
+        except ObjectDoesNotExist:
+            return None
 
     async def _get_groups(self, group_id):
         groups = Group.objects.filter(group_id=group_id)
@@ -81,3 +85,18 @@ class GetGroupParents(View):
             rows = cursor.fetchall()
 
         return rows
+
+
+class GetItem(View):
+    async def get(self, request, item_id, *args, **kwargs):
+        item = await self._get_item(item_id)
+
+        return JsonResponse({
+            'item': item.to_full_dict() if item else None,
+        })
+
+    async def _get_item(self, item_id):
+        try:
+            return await Item.objects.select_related('group').aget(id=item_id)
+        except ObjectDoesNotExist:
+            return None

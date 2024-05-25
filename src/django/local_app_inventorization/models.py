@@ -18,6 +18,12 @@ class Group(models.Model):
             'group_id': self.group_id,
         }
 
+    def to_full_dict(self):
+        result = self.to_dict()
+        del result['group_id']
+        result['group'] = self.group.to_dict() if self.group else None
+        return result
+
 
 class Item(models.Model):
     name = models.CharField(max_length=100)
@@ -39,3 +45,9 @@ class Item(models.Model):
             'needed_count': self.needed_count,
             'group_id': self.group_id,
         }
+
+    def to_full_dict(self):
+        result = self.to_dict()
+        del result['group_id']
+        result['group'] = self.group.to_dict()
+        return result

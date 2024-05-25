@@ -1,7 +1,10 @@
 from django.contrib import admin
 from django.urls import include, path
 
-from local_app_inventorization.views import GetRootGroups, GetGroup, GetGroupParents
+from local_app_inventorization.views import (
+    GetRootGroups, GetGroup, GetGroupParents,
+    GetItem,
+)
 from local_app_users.views import AuthCheck, AuthLogin
 
 
@@ -11,6 +14,7 @@ api_urlpatterns = ([
     path('1.0/groups', GetRootGroups.as_view(), name='get-root-groups'),
     path('1.0/groups/<int:group_id>', GetGroup.as_view(), name='get-group'),
     path('1.0/groups/<int:group_id>/parents', GetGroupParents.as_view(), name='get-group-parents'),
+    path('1.0/items/<int:item_id>', GetItem.as_view(), name='get-item'),
 ], 'api')
 
 
