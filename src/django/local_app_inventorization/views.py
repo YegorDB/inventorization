@@ -1,6 +1,7 @@
 import asyncio
 
 from asgiref.sync import sync_to_async
+from dataclasses import dataclass
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import connection
@@ -11,12 +12,45 @@ from django.views import View
 from local_app_inventorization.models import Group, Item
 
 
+@dataclass
+class SearchParams:
+    query: str | None
+    start: int
+    end: int | None
+
+    @classmethod
+    def from_get_params(cls, get_params):
+        query = get_params.get('query', None)
+        offset = get_params.get('offset', '0')
+        start = int(offset) if offset.isnumeric() else 0
+        limit = get_params.get('limit', '10')
+        end = int(limit) + start if limit.isnumeric() else None
+
+        return cls(
+            query=query,
+            start=start,
+            end=end,
+        )
+
+
 class GetRootGroups(View):
     async def get(self, request, *args, **kwargs):
         groups = Group.objects.filter(group=None)
 
         return JsonResponse([
             g.to_dict()
+            async for g in groups
+        ], safe=False)
+
+
+class GetGroups(View):
+    async def get(self, request, *args, **kwargs):
+        params = SearchParams.from_get_params(request.GET)
+        filters = {'name__istartswith': params.query} if params.query is not None else {}
+        groups = Group.objects.filter(**filters).select_related('group')[params.start:params.end]
+
+        return JsonResponse([
+            g.to_full_dict()
             async for g in groups
         ], safe=False)
 
