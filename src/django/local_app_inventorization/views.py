@@ -4,6 +4,7 @@ from asgiref.sync import sync_to_async
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import connection
+from django.db.models import F
 from django.http import JsonResponse
 from django.views import View
 
@@ -100,3 +101,17 @@ class GetItem(View):
             return await Item.objects.select_related('group').aget(id=item_id)
         except ObjectDoesNotExist:
             return None
+
+
+class GetNeededItems(View):
+    async def get(self, request, *args, **kwargs):
+        items = await self._get_items()
+
+        return JsonResponse([
+            i.to_full_dict()
+            for i in items
+        ], safe=False)
+
+    async def _get_items(self):
+        items = Item.objects.filter(needed_count__gt=F('count')).select_related('group')
+        return [i async for i in items]
