@@ -35,7 +35,8 @@ class SearchParams:
 
 class GetRootGroups(View):
     async def get(self, request, *args, **kwargs):
-        groups = Group.objects.filter(group=None)
+        params = SearchParams.from_get_params(request.GET)
+        groups = Group.objects.filter(group=None)[params.start:params.end]
 
         return JsonResponse([
             g.to_dict()
@@ -120,6 +121,18 @@ class GetGroupParents(View):
             rows = cursor.fetchall()
 
         return rows
+
+
+class GetItems(View):
+    async def get(self, request, *args, **kwargs):
+        params = SearchParams.from_get_params(request.GET)
+        filters = {'name__istartswith': params.query} if params.query is not None else {}
+        items = Item.objects.filter(**filters).select_related('group')[params.start:params.end]
+
+        return JsonResponse([
+            i.to_full_dict()
+            async for i in items
+        ], safe=False)
 
 
 class GetItem(View):
