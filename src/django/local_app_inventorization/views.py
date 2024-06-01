@@ -1,4 +1,5 @@
 import asyncio
+import json
 
 from asgiref.sync import sync_to_async
 from dataclasses import dataclass
@@ -121,6 +122,24 @@ class GetGroupParents(View):
             rows = cursor.fetchall()
 
         return rows
+
+
+class CreateGroup(View):
+    async def post(self, request, parent_group_id, *args, **kwargs):
+        data = json.loads(request.body)
+        name = data.get('name')
+
+        if name is None:
+            return JsonResponse({
+                'name': 'Missed value.',
+            }, status=400)
+
+        group = await Group.objects.acreate(
+            name=data.get('name', ''),
+            group_id=parent_group_id,
+        )
+
+        return JsonResponse(group.to_dict())
 
 
 class GetItems(View):
