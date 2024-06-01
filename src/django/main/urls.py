@@ -3,7 +3,7 @@ from django.urls import include, path
 
 from local_app_inventorization.views import (
     GetGroups, GetRootGroups, GetGroup, GetGroupParents, CreateGroup, UpdateGroup,
-    GetItems, GetItem, GetNeededItems, CreateItem,
+    GetItems, GetItem, GetNeededItems, CreateItem, UpdateItem,
 )
 from local_app_users.views import AuthCheck, AuthLogin
 
@@ -21,6 +21,7 @@ api_urlpatterns = ([
     path('1.0/items/needed/', GetNeededItems.as_view(), name='get-needed-items'),
     path('1.0/items/<int:item_id>/', GetItem.as_view(), name='get-item'),
     path('1.0/items/create/<int:parent_group_id>/', CreateItem.as_view(), name='create-item'),
+    path('1.0/items/update/<int:item_id>/', UpdateItem.as_view(), name='update-item'),
 ], 'api')
 
 

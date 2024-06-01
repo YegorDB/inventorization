@@ -222,3 +222,27 @@ class CreateItem(View):
         )
 
         return JsonResponse(item.to_dict())
+
+
+class UpdateItem(View):
+    async def post(self, request, item_id, *args, **kwargs):
+        try:
+            item = await Item.objects.aget(id=item_id)
+        except Item.DoesNotExist:
+            return JsonResponse({
+                'id': 'Wrong value.',
+            }, status=400)
+
+        data = json.loads(request.body)
+
+        if 'name' in data:
+            item.name = data['name']
+        if 'count' in data:
+            item.count = data['count']
+        if 'needed_count' in data:
+            item.needed_count = data['needed_count']
+        if 'parent_group_id' in data:
+            item.group_id = data['parent_group_id']
+        await item.asave()
+
+        return JsonResponse(item.to_dict())
