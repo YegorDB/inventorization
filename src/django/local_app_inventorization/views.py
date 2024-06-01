@@ -134,7 +134,7 @@ class CreateGroup(View):
             }, status=400)
 
         group = await Group.objects.acreate(
-            name=data.get('name', ''),
+            name=name,
             group_id=parent_group_id,
         )
 
@@ -200,3 +200,25 @@ class GetNeededItems(View):
     async def _get_items(self):
         items = Item.objects.filter(needed_count__gt=F('count')).select_related('group')
         return [i async for i in items]
+
+
+class CreateItem(View):
+    async def post(self, request, parent_group_id, *args, **kwargs):
+        data = json.loads(request.body)
+        name = data.get('name')
+        count = data.get('count', 0)
+        needed_count = data.get('needed_count', 0)
+
+        if name is None:
+            return JsonResponse({
+                'name': 'Missed value.',
+            }, status=400)
+
+        item = await Item.objects.acreate(
+            name=name,
+            count=count,
+            needed_count=needed_count,
+            group_id=parent_group_id,
+        )
+
+        return JsonResponse(item.to_dict())
