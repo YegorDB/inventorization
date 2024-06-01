@@ -4,7 +4,6 @@ import json
 from asgiref.sync import sync_to_async
 from dataclasses import dataclass
 
-from django.core.exceptions import ObjectDoesNotExist
 from django.db import connection
 from django.db.models import F
 from django.http import JsonResponse
@@ -74,7 +73,7 @@ class GetGroup(View):
     async def _get_group(self, group_id):
         try:
             return await Group.objects.select_related('group').aget(id=group_id)
-        except ObjectDoesNotExist:
+        except Group.DoesNotExist:
             return None
 
     async def _get_groups(self, group_id):
@@ -142,6 +141,26 @@ class CreateGroup(View):
         return JsonResponse(group.to_dict())
 
 
+class UpdateGroup(View):
+    async def post(self, request, group_id, *args, **kwargs):
+        try:
+            group = await Group.objects.aget(id=group_id)
+        except Group.DoesNotExist:
+            return JsonResponse({
+                'id': 'Wrong value.',
+            }, status=400)
+
+        data = json.loads(request.body)
+
+        if 'name' in data:
+            group.name = data['name']
+        if 'parent_group_id' in data:
+            group.group_id = data['parent_group_id']
+        await group.asave()
+
+        return JsonResponse(group.to_dict())
+
+
 class GetItems(View):
     async def get(self, request, *args, **kwargs):
         params = SearchParams.from_get_params(request.GET)
@@ -165,7 +184,7 @@ class GetItem(View):
     async def _get_item(self, item_id):
         try:
             return await Item.objects.select_related('group').aget(id=item_id)
-        except ObjectDoesNotExist:
+        except Item.DoesNotExist:
             return None
 
 
