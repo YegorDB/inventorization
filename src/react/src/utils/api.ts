@@ -1,3 +1,4 @@
+import { getCookieValue } from './cookie';
 import {
   TLoginRequestData,
   TSuccessResponseData,
@@ -38,7 +39,8 @@ export async function postRequest<D, T>(
   return await request<T>(path, {
   	method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCookieValue('csrftoken')
     },
   	body: JSON.stringify(data),
   }, callback);
