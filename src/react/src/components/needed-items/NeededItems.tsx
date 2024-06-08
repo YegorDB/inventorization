@@ -6,7 +6,7 @@ import { TItem, TFullItem, TNeededItemsProps } from '../../types';
 import { postRequest } from '../../utils';
 
 const NeededItem: FC<TFullItem> = ({
-  _id,
+  id,
   name,
   count: initialCount,
   neededCount,
@@ -18,7 +18,7 @@ const NeededItem: FC<TFullItem> = ({
     (newCount: number) => {
       setCount(newCount);
 
-      const path = `/api/items/update/${_id}/`;
+      const path = `/api/items/update/${id}/`;
       const requestData = {
         count: newCount,
       };
@@ -26,15 +26,15 @@ const NeededItem: FC<TFullItem> = ({
         console.log('responseData', responseData);
       });
     },
-    [setCount, _id]
+    [setCount, id]
   );
 
   return (
     <>
-      <div><Link to={`/item/${_id}`}>{name}</Link></div>
+      <div><Link to={`/item/${id}`}>{name}</Link></div>
       <div>Count: <ItemCount count={count} callback={callback} /></div>
       <div>Nedded count: {neededCount}</div>
-      <div>Group: <Link to={`/group/${group._id}`}>{group.name}</Link></div>
+      <div>Group: <Link to={`/group/${group.id}`}>{group.name}</Link></div>
     </>
   );
 }
@@ -43,7 +43,7 @@ const NeededItems: FC<TNeededItemsProps> = ({ items }) => {
   return (
     <>
       {items.map(item => (
-        <div key={item._id}>
+        <div key={item.id}>
           <NeededItem {...item} />
         </div>
       ))}

@@ -38,14 +38,14 @@ function Group() {
 
       <h3>Groups</h3>
       {groups.length > 0 ? groups.map((group: TGroup) => (
-        <Link to={`/group/${group._id}`} key={group._id}>
+        <Link to={`/group/${group.id}`} key={group.id}>
           <div>{group.name}</div>
         </Link>
       )) : <div>Empty</div>}
 
       <h3>Items</h3>
       {items.length > 0 ? items.map((item: TItem) => (
-        <Link to={`/item/${item._id}`} key={item._id}>
+        <Link to={`/item/${item.id}`} key={item.id}>
           <div>{item.name}</div>
         </Link>
       )) : <div>Empty</div>}
@@ -60,13 +60,13 @@ function Group() {
 
       {addGroupModalOpen && (
         <Modal handleClose={closeAddGroupModal} title="Add group">
-          <AddGroupForm parentGroupId={group._id} />
+          <AddGroupForm parentGroupId={group.id} />
         </Modal>
       )}
 
       {addItemModalOpen && (
         <Modal handleClose={closeAddItemModal} title="Add item">
-          <AddItemForm parentGroupId={group._id} />
+          <AddItemForm parentGroupId={group.id} />
         </Modal>
       )}
     </>

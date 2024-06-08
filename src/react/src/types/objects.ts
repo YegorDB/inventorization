@@ -1,9 +1,8 @@
 type TBaseItem = {
-  _id: string,
+  id: string,
   name: string,
   count: number,
   neededCount: number,
-  __v: number,
 };
 
 export type TItem = TBaseItem & {
@@ -15,9 +14,8 @@ export type TFullItem = TBaseItem & {
 };
 
 type TBaseGroup = {
-  _id: string,
+  id: string,
   name: string,
-  __v: number,
 };
 
 export type TGroup = TBaseGroup & {

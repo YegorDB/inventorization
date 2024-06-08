@@ -54,13 +54,13 @@ const ItemSearchResult: FC<TItemSearchResultProps> = ({ item }) => {
     <>
       <h4>Item</h4>
       <div>
-        <Link to={`/item/${item._id}`}>
+        <Link to={`/item/${item.id}`}>
           <div>{item.name}</div>
         </Link>
       </div>
       <h4>Group from</h4>
       <div>
-        <Link to={`/group/${item.group._id}`}>
+        <Link to={`/group/${item.group.id}`}>
           <div>{item.group.name}</div>
         </Link>
       </div>
@@ -73,14 +73,14 @@ const GroupSearchResult: FC<TGroupSearchResultProps> = ({ group }) => {
     <>
       <h4>Group</h4>
       <div>
-        <Link to={`/group/${group._id}`}>
+        <Link to={`/group/${group.id}`}>
           <div>{group.name}</div>
         </Link>
       </div>
       <h4>Group from</h4>
       <div>
         {group.group ? (
-          <Link to={`/group/${group.group._id}`}>
+          <Link to={`/group/${group.group.id}`}>
             <div>{group.group.name}</div>
           </Link>
         ) : <div>Empty</div>}
@@ -164,11 +164,11 @@ function SearchPage() {
       <div>
         {searchType === SearchType.items ? (
           searchResults.map((item: TFullItem | TFullGroup) => (
-            <ItemSearchResult item={ item as TFullItem } key={ item._id } />
+            <ItemSearchResult item={ item as TFullItem } key={ item.id } />
           ))
         ) : (
           searchResults.map((group: TFullItem | TFullGroup) => (
-            <GroupSearchResult group={ group as TFullGroup }  key={ group._id } />
+            <GroupSearchResult group={ group as TFullGroup }  key={ group.id } />
           ))
         )}
       </div>
