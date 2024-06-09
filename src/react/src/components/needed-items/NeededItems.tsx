@@ -9,7 +9,7 @@ const NeededItem: FC<TFullItem> = ({
   id,
   name,
   count: initialCount,
-  neededCount,
+  needed_count: neededCount,
   group,
 }) => {
   const [count, setCount] = useState<number>(initialCount || 0);

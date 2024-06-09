@@ -5,6 +5,7 @@ export {
   loginRequest,
   itemRequest,
   groupRequest,
+  groupParentsRequest,
   mainGroupsRequest,
   neededItemsRequest,
 } from './api';

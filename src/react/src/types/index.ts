@@ -10,6 +10,7 @@ export type {
   TSuccessResponseData,
   TItemResponseData,
   TGroupResponseData,
+  TGroupParentsResponseData,
   TMainGroupsResponseData,
   TNeededItemsResponseData,
   TSearchResults,

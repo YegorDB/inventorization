@@ -1,12 +1,12 @@
 type TBaseItem = {
-  id: string,
+  id: number,
   name: string,
   count: number,
-  neededCount: number,
+  needed_count: number,
 };
 
 export type TItem = TBaseItem & {
-  group: string,
+  group_id: number,
 };
 
 export type TFullItem = TBaseItem & {
@@ -14,12 +14,12 @@ export type TFullItem = TBaseItem & {
 };
 
 type TBaseGroup = {
-  id: string,
+  id: number,
   name: string,
 };
 
 export type TGroup = TBaseGroup & {
-  group: string,
+  group_id: number,
 };
 
 export type TFullGroup = TBaseGroup & {

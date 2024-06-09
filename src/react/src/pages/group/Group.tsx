@@ -6,7 +6,7 @@ import AddItemForm from '../../components/add-item-form/AddItemForm';
 import Modal from '../../components/modal/Modal';
 import ParentGroups from '../../components/parent-groups/ParentGroups';
 import { TItem, TGroup } from '../../types';
-import { checkAuth, groupRequest } from '../../utils';
+import { checkAuth, groupRequest, groupParentsRequest } from '../../utils';
 
 // @ts-ignore
 export async function groupLoader({ params }) {
@@ -15,12 +15,17 @@ export async function groupLoader({ params }) {
     return redirect('/auth/login');
   }
 
-  return await groupRequest(params.groupId);
+  return await Promise.all([
+    groupRequest(params.groupId),
+    groupParentsRequest(params.groupId),
+  ]);
 }
 
 function Group() {
   // @ts-ignore
-  const { group, groups, items, parentGroups } = useLoaderData();
+  const [ groupData, groupParentsData ] = useLoaderData();
+  const { group, groups, items } = groupData;
+  const { groups: parentGroups } = groupParentsData;
 
   const [addGroupModalOpen, setAddGroupModalOpen] = useState(false);
   const openAddGroupModal = useCallback(() => setAddGroupModalOpen(true), []);

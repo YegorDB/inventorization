@@ -4,6 +4,7 @@ import {
   TSuccessResponseData,
   TItemResponseData,
   TGroupResponseData,
+  TGroupParentsResponseData,
   TMainGroupsResponseData,
   TNeededItemsResponseData,
 } from '../types';
@@ -48,7 +49,7 @@ export async function postRequest<D, T>(
 
 export async function checkAuth() {
   const data = await request<TSuccessResponseData>(
-    '/api/auth/check/',
+    '/api/1.0/auth/check/',
   );
 
   return data.success;
@@ -58,35 +59,43 @@ export async function loginRequest(
   data: TLoginRequestData
 ): Promise<TSuccessResponseData> {
   return await postRequest<TLoginRequestData, TSuccessResponseData>(
-    '/api/auth/login/',
+    '/api/1.0/auth/login/',
     data,
   );
 }
 
 export async function itemRequest(
-  itemId: string,
+  itemId: number,
 ): Promise<TItemResponseData> {
   return await request<TItemResponseData>(
-    `/api/items/${itemId}`,
+    `/api/1.0/items/${itemId}`,
   );
 }
 
 export async function groupRequest(
-  groupId: string,
+  groupId: number,
 ): Promise<TGroupResponseData> {
   return await request<TGroupResponseData>(
-    `/api/groups/${groupId}`,
+    `/api/1.0/groups/${groupId}`,
+  );
+}
+
+export async function groupParentsRequest(
+  groupId: number,
+): Promise<TGroupParentsResponseData> {
+  return await request<TGroupParentsResponseData>(
+    `/api/1.0/groups/${groupId}/parents`,
   );
 }
 
 export async function mainGroupsRequest(): Promise<TMainGroupsResponseData> {
   return await request<TMainGroupsResponseData>(
-    '/api/groups/',
+    '/api/1.0/groups/root/',
   );
 }
 
 export async function neededItemsRequest(): Promise<TNeededItemsResponseData> {
   return await request<TNeededItemsResponseData>(
-    '/api/needed-items/',
+    '/api/1.0/items/needed/',
   );
 }

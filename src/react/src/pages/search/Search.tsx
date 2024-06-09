@@ -112,7 +112,7 @@ function SearchPage() {
       e.preventDefault();
 
       request<TSearchResults>(
-        `/api/search/${searchType}/?s=${searchQuery}`,
+        `/api/1.0/${searchType}/?query=${searchQuery}`,
         undefined,
         (results: TSearchResults) => {
           console.log('search results', results);

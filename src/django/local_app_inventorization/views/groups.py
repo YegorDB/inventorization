@@ -7,7 +7,7 @@ from django.db import connection
 from django.http import JsonResponse
 from django.views import View
 
-from local_app_inventorization.models import Group
+from local_app_inventorization.models import Group, Item
 
 from .params import SearchParams
 
@@ -68,14 +68,16 @@ class GetGroupParents(View):
     async def get(self, request, group_id, *args, **kwargs):
         rows = await self._get_groups_rows(group_id)
 
-        return JsonResponse([
-            {
-                'id': row_id,
-                'name': name,
-                'group_id': group_id,
-            }
-            for row_id, name, group_id in rows
-        ], safe=False)
+        return JsonResponse({
+            'groups': [
+                {
+                    'id': row_id,
+                    'name': name,
+                    'group_id': group_id,
+                }
+                for row_id, name, group_id in rows
+            ]
+        })
 
     @sync_to_async
     def _get_groups_rows(self, group_id):
