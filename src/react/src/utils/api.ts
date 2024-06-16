@@ -8,6 +8,8 @@ import {
   TMainGroupsResponseData,
   TNeededItemsResponseData,
   TSearchResults,
+  TItem,
+  TCreateUpdateItem,
   TGroup,
   TCreateUpdateGroup,
 } from '../types';
@@ -124,6 +126,18 @@ export async function createGroupRequest(
 ): Promise<TGroup> {
   return await postRequest(
     `/api/1.0/groups/create/${parentGroupId}/`,
+    data,
+    callback,
+  );
+}
+
+export async function createItemRequest(
+  parentGroupId: number,
+  data: TCreateUpdateItem,
+  callback: Function,
+): Promise<TItem> {
+  return await postRequest(
+    `/api/1.0/items/create/${parentGroupId}/`,
     data,
     callback,
   );

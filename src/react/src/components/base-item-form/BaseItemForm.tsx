@@ -4,10 +4,11 @@ import React, {
 
 import ItemCount from '../item-count/ItemCount';
 import { TBaseItemFormProps, TItem } from '../../types';
-import { postRequest } from '../../utils';
+import { createItemRequest, updateItemRequest } from '../../utils';
 
 const BaseItemForm: FC<TBaseItemFormProps> = ({
-  path,
+  itemId,
+  parentGroupId,
   initialName,
   initialCount,
   initialNeededCount
@@ -40,11 +41,18 @@ const BaseItemForm: FC<TBaseItemFormProps> = ({
         count: count,
         neededCount: neededCount,
       };
-      postRequest(path, requestData, (responseData: TItem) => {
+
+      const callback = (responseData: TItem) => {
         console.log('responseData', responseData);
-      });
+      };
+
+      if (itemId === undefined) {
+        createItemRequest(parentGroupId || 0, requestData, callback);
+      } else {
+        updateItemRequest(itemId, requestData, callback);
+      }
     },
-    [name, count, neededCount, path]
+    [itemId, parentGroupId, name, count, neededCount]
   );
 
   return (

@@ -13,6 +13,13 @@ export type TFullItem = TBaseItem & {
   group: TGroup,
 };
 
+export type TCreateUpdateItem = {
+  name?: string,
+  count?: number,
+  needed_count?: number,
+  group_id?: number,
+}
+
 type TBaseGroup = {
   id: number,
   name: string,

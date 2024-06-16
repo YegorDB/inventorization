@@ -10,4 +10,5 @@ export {
   neededItemsRequest,
   searchRequest,
   createGroupRequest,
+  createItemRequest,
 } from './api';
