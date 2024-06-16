@@ -67,6 +67,7 @@ class GetGroup(View):
 class GetGroupParents(View):
     async def get(self, request, group_id, *args, **kwargs):
         rows = await self._get_groups_rows(group_id)
+        rows.reverse()
 
         return JsonResponse({
             'groups': [

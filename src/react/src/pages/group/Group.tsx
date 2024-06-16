@@ -37,7 +37,7 @@ function Group() {
 
   return (
     <>
-      <ParentGroups groups={ parentGroups } />
+      <ParentGroups groups={ parentGroups.slice(0, -1) } />
 
       <h1>Group { group.name }</h1>
 
