@@ -11,4 +11,5 @@ export {
   searchRequest,
   createGroupRequest,
   createItemRequest,
+  updateItemRequest,
 } from './api';

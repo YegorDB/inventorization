@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import ItemCount from '../item-count/ItemCount';
 import { TItem, TFullItem, TNeededItemsProps } from '../../types';
-import { postRequest } from '../../utils';
+import { updateItemRequest } from '../../utils';
 
 const NeededItem: FC<TFullItem> = ({
   id,
@@ -18,13 +18,17 @@ const NeededItem: FC<TFullItem> = ({
     (newCount: number) => {
       setCount(newCount);
 
-      const path = `/api/items/update/${id}/`;
       const requestData = {
         count: newCount,
       };
-      postRequest(path, requestData, (responseData: TItem) => {
-        console.log('responseData', responseData);
-      });
+
+      updateItemRequest(
+        id,
+        requestData,
+        (responseData: TItem) => {
+          console.log('responseData', responseData);
+        }
+      );
     },
     [setCount, id]
   );

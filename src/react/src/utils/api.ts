@@ -142,3 +142,15 @@ export async function createItemRequest(
     callback,
   );
 }
+
+export async function updateItemRequest(
+  itemId: number,
+  data: TCreateUpdateItem,
+  callback: Function,
+): Promise<TItem> {
+  return await postRequest(
+    `/api/1.0/items/update/${itemId}/`,
+    data,
+    callback,
+  );
+}
