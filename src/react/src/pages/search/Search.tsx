@@ -13,7 +13,7 @@ import {
   TFullItem,
   TFullGroup,
 } from '../../types';
-import { request, checkAuth } from '../../utils';
+import { checkAuth, searchRequest } from '../../utils';
 
 // @ts-ignore
 export async function searchLoader({ params }) {
@@ -111,9 +111,9 @@ function SearchPage() {
     e => {
       e.preventDefault();
 
-      request<TSearchResults>(
-        `/api/1.0/${searchType}/?query=${searchQuery}`,
-        undefined,
+      searchRequest(
+        searchType,
+        searchQuery,
         (results: TSearchResults) => {
           console.log('search results', results);
           setSearchResults(results);

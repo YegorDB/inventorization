@@ -5,7 +5,7 @@ import {
 } from '../../consts';
 import { SearchType } from '../../enums';
 import { TSearchResults } from '../../types';
-import { request } from '../../utils';
+import { searchRequest } from '../../utils';
 
 // @ts-ignore
 export const search = (
@@ -18,9 +18,9 @@ export const search = (
       type: GET_SEARCH_RESULTS_REQUEST_PENDING,
     });
 
-    request<TSearchResults>(
-      `/api/search/${searchType}/?s=${searchQuery}`,
-      undefined,
+    searchRequest(
+      searchType,
+      searchQuery,
       (results: TSearchResults) => {
         console.log('search results', results);
 

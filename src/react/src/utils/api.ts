@@ -7,6 +7,7 @@ import {
   TGroupParentsResponseData,
   TMainGroupsResponseData,
   TNeededItemsResponseData,
+  TSearchResults,
 } from '../types';
 
 export async function request<T>(
@@ -97,5 +98,19 @@ export async function mainGroupsRequest(): Promise<TMainGroupsResponseData> {
 export async function neededItemsRequest(): Promise<TNeededItemsResponseData> {
   return await request<TNeededItemsResponseData>(
     '/api/1.0/items/needed/',
+  );
+}
+
+export async function searchRequest(
+  searchType: string,
+  searchQuery: string,
+  callback: Function,
+  errorHandler?: Function,
+): Promise<TSearchResults> {
+  return await request<TSearchResults>(
+    `/api/1.0/${searchType}/?query=${searchQuery}`,
+    undefined,
+    callback,
+    errorHandler,
   );
 }

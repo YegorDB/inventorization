@@ -8,4 +8,5 @@ export {
   groupParentsRequest,
   mainGroupsRequest,
   neededItemsRequest,
+  searchRequest,
 } from './api';
