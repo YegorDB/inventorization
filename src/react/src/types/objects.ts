@@ -25,3 +25,8 @@ export type TGroup = TBaseGroup & {
 export type TFullGroup = TBaseGroup & {
   group?: TGroup,
 };
+
+export type TCreateUpdateGroup = {
+  name?: string,
+  group_id?: number,
+}

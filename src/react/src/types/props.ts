@@ -3,22 +3,23 @@ import React, { ChangeEventHandler } from 'react';
 import { TFullItem, TFullGroup, TGroup } from './objects';
 
 export type TAddGroupFormProps = {
-  parentGroupId: string,
+  parentGroupId: number,
 };
 
 export type TBaseItemFormProps = {
-  path: string,
+  itemId?: number,
+  parentGroupId?: number,
   initialName?: string,
   initialCount?: number,
   initialNeededCount?: number,
 };
 
 export type TAddItemFormProps = {
-  parentGroupId: string,
+  parentGroupId: number,
 };
 
 export type TUpdateItemFormProps = {
-  itemId: string,
+  itemId: number,
   initialName: string,
   initialCount: number,
   initialNeededCount: number,

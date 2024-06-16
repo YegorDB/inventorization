@@ -9,4 +9,5 @@ export {
   mainGroupsRequest,
   neededItemsRequest,
   searchRequest,
+  createGroupRequest,
 } from './api';

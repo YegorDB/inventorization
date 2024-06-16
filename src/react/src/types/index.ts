@@ -1,8 +1,10 @@
 export type {
   TItem,
   TFullItem,
+  TCreateUpdateItem,
   TGroup,
   TFullGroup,
+  TCreateUpdateGroup,
 } from './objects';
 
 export type {

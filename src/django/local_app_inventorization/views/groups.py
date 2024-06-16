@@ -115,6 +115,9 @@ class CreateGroup(View):
                 'name': 'Missed value.',
             }, status=400)
 
+        if parent_group_id == 0:
+            parent_group_id = None
+
         group = await Group.objects.acreate(
             name=name,
             group_id=parent_group_id,

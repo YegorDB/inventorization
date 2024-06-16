@@ -41,7 +41,7 @@ function Main() {
 
       {addGroupModalOpen && (
         <Modal handleClose={closeAddGroupModal} title="Add group">
-          <AddGroupForm parentGroupId="_" />
+          <AddGroupForm parentGroupId={0} />
         </Modal>
       )}
 

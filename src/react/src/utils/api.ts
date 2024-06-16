@@ -8,6 +8,8 @@ import {
   TMainGroupsResponseData,
   TNeededItemsResponseData,
   TSearchResults,
+  TGroup,
+  TCreateUpdateGroup,
 } from '../types';
 
 export async function request<T>(
@@ -112,5 +114,17 @@ export async function searchRequest(
     undefined,
     callback,
     errorHandler,
+  );
+}
+
+export async function createGroupRequest(
+  parentGroupId: number,
+  data: TCreateUpdateGroup,
+  callback: Function,
+): Promise<TGroup> {
+  return await postRequest(
+    `/api/1.0/groups/create/${parentGroupId}/`,
+    data,
+    callback,
   );
 }
