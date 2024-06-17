@@ -45,7 +45,7 @@ function Item() {
       {modalOpen && (
         <Modal handleClose={closeModal} title="Edit item">
           <UpdateItemForm
-            itemId={item._id}
+            itemId={item.id}
             initialName={item.name}
             initialCount={item.count}
             initialNeededCount={item.needed_count}

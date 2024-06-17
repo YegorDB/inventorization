@@ -39,7 +39,7 @@ const BaseItemForm: FC<TBaseItemFormProps> = ({
       const requestData = {
         name: name,
         count: count,
-        neededCount: neededCount,
+        needed_count: neededCount,
       };
 
       const callback = (responseData: TItem) => {
