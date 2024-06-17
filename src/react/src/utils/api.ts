@@ -1,10 +1,17 @@
+import { getCookieValue } from './cookie';
 import {
   TLoginRequestData,
   TSuccessResponseData,
   TItemResponseData,
   TGroupResponseData,
+  TGroupParentsResponseData,
   TMainGroupsResponseData,
   TNeededItemsResponseData,
+  TSearchResults,
+  TItem,
+  TCreateUpdateItem,
+  TGroup,
+  TCreateUpdateGroup,
 } from '../types';
 
 export async function request<T>(
@@ -38,7 +45,8 @@ export async function postRequest<D, T>(
   return await request<T>(path, {
   	method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCookieValue('csrftoken')
     },
   	body: JSON.stringify(data),
   }, callback);
@@ -46,7 +54,7 @@ export async function postRequest<D, T>(
 
 export async function checkAuth() {
   const data = await request<TSuccessResponseData>(
-    '/api/auth/check/',
+    '/api/1.0/auth/check/',
   );
 
   return data.success;
@@ -56,35 +64,93 @@ export async function loginRequest(
   data: TLoginRequestData
 ): Promise<TSuccessResponseData> {
   return await postRequest<TLoginRequestData, TSuccessResponseData>(
-    '/api/auth/login/',
+    '/api/1.0/auth/login/',
     data,
   );
 }
 
 export async function itemRequest(
-  itemId: string,
+  itemId: number,
 ): Promise<TItemResponseData> {
   return await request<TItemResponseData>(
-    `/api/items/${itemId}`,
+    `/api/1.0/items/${itemId}`,
   );
 }
 
 export async function groupRequest(
-  groupId: string,
+  groupId: number,
 ): Promise<TGroupResponseData> {
   return await request<TGroupResponseData>(
-    `/api/groups/${groupId}`,
+    `/api/1.0/groups/${groupId}`,
+  );
+}
+
+export async function groupParentsRequest(
+  groupId: number,
+): Promise<TGroupParentsResponseData> {
+  return await request<TGroupParentsResponseData>(
+    `/api/1.0/groups/${groupId}/parents`,
   );
 }
 
 export async function mainGroupsRequest(): Promise<TMainGroupsResponseData> {
   return await request<TMainGroupsResponseData>(
-    '/api/groups/',
+    '/api/1.0/groups/root/',
   );
 }
 
 export async function neededItemsRequest(): Promise<TNeededItemsResponseData> {
   return await request<TNeededItemsResponseData>(
-    '/api/needed-items/',
+    '/api/1.0/items/needed/',
+  );
+}
+
+export async function searchRequest(
+  searchType: string,
+  searchQuery: string,
+  callback: Function,
+  errorHandler?: Function,
+): Promise<TSearchResults> {
+  return await request<TSearchResults>(
+    `/api/1.0/${searchType}/?query=${searchQuery}`,
+    undefined,
+    callback,
+    errorHandler,
+  );
+}
+
+export async function createGroupRequest(
+  parentGroupId: number,
+  data: TCreateUpdateGroup,
+  callback: Function,
+): Promise<TGroup> {
+  return await postRequest(
+    `/api/1.0/groups/create/${parentGroupId}/`,
+    data,
+    callback,
+  );
+}
+
+export async function createItemRequest(
+  parentGroupId: number,
+  data: TCreateUpdateItem,
+  callback: Function,
+): Promise<TItem> {
+  return await postRequest(
+    `/api/1.0/items/create/${parentGroupId}/`,
+    data,
+    callback,
+  );
+}
+
+export async function updateItemRequest(
+  itemId: number,
+  data: TCreateUpdateItem,
+  callback: Function,
+): Promise<TItem> {
+  return await postRequest(
+    `/api/1.0/items/update/${itemId}/`,
+    data,
+    callback,
   );
 }

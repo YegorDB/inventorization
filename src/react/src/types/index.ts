@@ -1,8 +1,10 @@
 export type {
   TItem,
   TFullItem,
+  TCreateUpdateItem,
   TGroup,
   TFullGroup,
+  TCreateUpdateGroup,
 } from './objects';
 
 export type {
@@ -10,6 +12,7 @@ export type {
   TSuccessResponseData,
   TItemResponseData,
   TGroupResponseData,
+  TGroupParentsResponseData,
   TMainGroupsResponseData,
   TNeededItemsResponseData,
   TSearchResults,

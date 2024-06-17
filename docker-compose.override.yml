@@ -1,6 +1,10 @@
 version: '3.8'
 
 services:
+  django:
+    image: inventorization/django:1.0.0
+    restart: always
+
   nginx:
     volumes:
       - "./src/react/build:/frontend:ro"
@@ -8,4 +12,5 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - express
+      - django
+    restart: always

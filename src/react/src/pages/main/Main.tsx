@@ -30,7 +30,7 @@ function Main() {
 
       <h3>Groups</h3>
       {groups.map((group: TGroup) => (
-        <Link to={`/group/${group._id}`} key={group._id}>
+        <Link to={`/group/${group.id}`} key={group.id}>
           <div>{group.name}</div>
         </Link>
       ))}
@@ -41,7 +41,7 @@ function Main() {
 
       {addGroupModalOpen && (
         <Modal handleClose={closeAddGroupModal} title="Add group">
-          <AddGroupForm parentGroupId="_" />
+          <AddGroupForm parentGroupId={0} />
         </Modal>
       )}
 

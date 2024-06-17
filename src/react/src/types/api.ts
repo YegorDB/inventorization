@@ -18,7 +18,10 @@ export type TGroupResponseData = {
   group: TFullGroup,
   groups: TGroup[],
   items: TItem[],
-  parentGroups: TGroup[],
+};
+
+export type TGroupParentsResponseData = {
+  groups: TGroup[],
 };
 
 export type TMainGroupsResponseData = TGroup[];

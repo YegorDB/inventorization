@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 
 import { TAddGroupFormProps, TGroup } from '../../types';
-import { postRequest } from '../../utils';
+import { createGroupRequest } from '../../utils';
 
 const AddGroupForm: FC<TAddGroupFormProps> = ({ parentGroupId }) => {
   const [name, setName] = useState<string>('');
@@ -17,13 +17,17 @@ const AddGroupForm: FC<TAddGroupFormProps> = ({ parentGroupId }) => {
     e => {
       e.preventDefault();
 
-      const url = `/api/groups/add/${parentGroupId}/`;
       const requestData = {
         name: name,
       };
-      postRequest(url, requestData, (responseData: TGroup) => {
-        console.log('responseData', responseData);
-      });
+
+      createGroupRequest(
+        parentGroupId,
+        requestData,
+        (responseData: TGroup) => {
+          console.log('responseData', responseData);
+        }
+      );
     },
     [name, parentGroupId]
   );

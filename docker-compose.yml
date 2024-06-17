@@ -1,21 +1,23 @@
 version: '3.8'
 
 services:
-  mongo:
-    image: mongo:4.4.14
-    env_file: ./env/mongo/.env
+  postgres:
+    image: postgres:16.2
+    environment:
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+    env_file: ./env/postgres/.env
     volumes:
-      - "./data/mongo/db:/data/db"
+      - "./data/postgres/pgdata:/var/lib/postgresql/data/pgdata"
 
-  express:
-    build:
-      context: ./env/express
-    env_file: ./env/express/.env
-    image: inventorization/express
+  django:
+    environment:
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      SECRET_KEY: "${DJANGO_SECRET_KEY}"
+      ALLOWED_HOSTS: "${DJANGO_ALLOWED_HOSTS}"
     volumes:
-      - "./src/express:/app"
+      - "./src/django:/app"
     depends_on:
-      - mongo
+      - postgres
 
   nginx:
     image: nginx:1.21
